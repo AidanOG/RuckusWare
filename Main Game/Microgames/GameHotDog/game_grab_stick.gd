@@ -17,6 +17,7 @@ var success_1 = false
 var success_2 = false
 
 # Why so serious?
+# Why so serious?
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# transition_rect.texture = GameManager.transition_tex
