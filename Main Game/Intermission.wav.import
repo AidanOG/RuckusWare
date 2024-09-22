@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://brrqqatb0p71t"
+path="res://.godot/imported/Intermission.wav-e9293f0b81186570864341f4b6d2ce64.sample"
+
+[deps]
+
+source_file="res://Main Game/Intermission.wav"
+dest_files=["res://.godot/imported/Intermission.wav-e9293f0b81186570864341f4b6d2ce64.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
