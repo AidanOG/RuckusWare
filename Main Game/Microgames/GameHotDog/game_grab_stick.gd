@@ -4,6 +4,10 @@ extends Node
 @export var transition_rect: TextureRect
 @export var target_1: Area2D
 @export var target_2: Area2D
+@export var target_1_collision: CollisionShape2D
+@export var target_2_collision: CollisionShape2D
+@export var catcher_1_collision: CollisionShape2D
+@export var catcher_2_collision: CollisionShape2D
 @export var target_timer_1: Timer
 @export var target_timer_2: Timer
 @export var game_timer: Timer
@@ -16,13 +20,23 @@ var failed_2 = false
 var success_1 = false
 var success_2 = false
 
-# Why so serious?
-# Why so serious?
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# transition_rect.texture = GameManager.transition_tex
 	
 	get_tree().paused = true
+	
+	if GameManager.game_level == 1:
+		pass
+	elif GameManager.game_level == 2:
+		target_1_collision.scale = Vector2(6, 12)
+		target_2_collision.scale = Vector2(6, 12)
+	elif GameManager.game_level == 3:
+		target_1_collision.scale = Vector2(6, 6)
+		target_2_collision.scale = Vector2(6, 6)
+		catcher_1_collision.scale = Vector2(6, 6)
+		catcher_2_collision.scale = Vector2(6, 6)
+	
 	await get_tree().create_timer(0.125 / GameManager.game_speed).timeout
 	var transition_tween = get_tree().create_tween()
 	transition_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
@@ -97,9 +111,9 @@ func _on_game_timer_timeout():
 	transition_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	transition_tween.tween_property(transition_rect, "scale", Vector2(1, 1), (0.75 / GameManager.game_speed) )
 	
-	var audio_tween = get_tree().create_tween()
-	audio_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	audio_tween.tween_property(game_music, "volume_db", -60, (1/ GameManager.game_speed)) # -80 db is 0 volume
+	#var audio_tween = get_tree().create_tween()
+	#audio_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	#audio_tween.tween_property(game_music, "volume_db", -60, (1/ GameManager.game_speed)) # -80 db is 0 volume
 	
 	
 	await get_tree().create_timer(1/ GameManager.game_speed).timeout

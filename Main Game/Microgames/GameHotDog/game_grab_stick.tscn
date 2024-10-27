@@ -7,8 +7,6 @@
 [ext_resource type="Script" path="res://Main Game/Microgames/GameHotDog/target_2.gd" id="5_raimr"]
 [ext_resource type="AudioStream" uid="uid://das6oobng6oby" path="res://Main Game/Microgames/GameHotDog/Hot Dog Microgame.wav" id="6_1r5kp"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n61f0"]
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_qsfbx"]
 animations = [{
 "frames": [{
@@ -20,7 +18,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r10md"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n61f0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0jbxk"]
 animations = [{
@@ -33,11 +31,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="GameGrabStick" type="Node" node_paths=PackedStringArray("transition_rect", "target_1", "target_2", "target_timer_1", "target_timer_2", "game_timer", "game_music")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r10md"]
+
+[node name="GameGrabStick" type="Node" node_paths=PackedStringArray("transition_rect", "target_1", "target_2", "target_1_collision", "target_2_collision", "catcher_1_collision", "catcher_2_collision", "target_timer_1", "target_timer_2", "game_timer", "game_music")]
 script = ExtResource("1_kq6cc")
 transition_rect = NodePath("CanvasLayer/Control/TransitionRect")
 target_1 = NodePath("Target1")
 target_2 = NodePath("Target2")
+target_1_collision = NodePath("Target1/CollisionShape2D")
+target_2_collision = NodePath("Target2/CollisionShape2D")
+catcher_1_collision = NodePath("Catcher1/CollisionShape2D")
+catcher_2_collision = NodePath("Catcher2/CollisionShape2D")
 target_timer_1 = NodePath("TargetTimer1")
 target_timer_2 = NodePath("TargetTimer2")
 game_timer = NodePath("GameTimer")
@@ -54,6 +58,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TransitionRect" type="TextureRect" parent="CanvasLayer/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -73,53 +78,53 @@ texture = ExtResource("2_vj5kf")
 position = Vector2(640, 720)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Catcher1"]
-scale = Vector2(6, 6)
-shape = SubResource("RectangleShape2D_n61f0")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Catcher1"]
 modulate = Color(1, 0.341176, 0.341176, 1)
 sprite_frames = SubResource("SpriteFrames_qsfbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Catcher1"]
+scale = Vector2(6, 12)
+shape = SubResource("RectangleShape2D_n61f0")
 
 [node name="Catcher2" type="Area2D" parent="."]
 position = Vector2(1280, 720)
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Catcher2"]
-scale = Vector2(6, 6)
-shape = SubResource("RectangleShape2D_n61f0")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Catcher2"]
 modulate = Color(1, 0.341176, 0.341176, 1)
 sprite_frames = SubResource("SpriteFrames_qsfbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Catcher2"]
+scale = Vector2(6, 12)
+shape = SubResource("RectangleShape2D_n61f0")
 
 [node name="Target1" type="Area2D" parent="."]
 position = Vector2(640, 135)
 script = ExtResource("4_bw4qv")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Target1"]
-scale = Vector2(6, 6)
-shape = SubResource("RectangleShape2D_r10md")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Target1"]
 sprite_frames = SubResource("SpriteFrames_0jbxk")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Target1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Target1"]
+scale = Vector2(6, 15)
+shape = SubResource("RectangleShape2D_r10md")
 
 [node name="Target2" type="Area2D" parent="."]
 position = Vector2(1280, 135)
 script = ExtResource("5_raimr")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Target2"]
-scale = Vector2(6, 6)
-shape = SubResource("RectangleShape2D_r10md")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Target2"]
 sprite_frames = SubResource("SpriteFrames_0jbxk")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Target2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Target2"]
+scale = Vector2(6, 15)
+shape = SubResource("RectangleShape2D_r10md")
 
 [node name="TargetTimer1" type="Timer" parent="."]
 one_shot = true
