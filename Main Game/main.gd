@@ -12,6 +12,8 @@ extends Node
 @export var neutral_music: AudioStreamPlayer
 @export var lose_music: AudioStreamPlayer
 @export var speed_up_music: AudioStreamPlayer
+@export var left_racoon: AnimatedSprite2D
+@export var right_racoon: AnimatedSprite2D
 @export var background_animation: AnimatedSprite2D
 
 
@@ -42,15 +44,29 @@ func _ready():
 	win_music.set_pitch_scale(GameManager.game_speed)
 	lose_music.set_pitch_scale(GameManager.game_speed)
 	neutral_music.set_pitch_scale(GameManager.game_speed)
+	background_animation.set_speed_scale(GameManager.game_speed)
+	left_racoon.set_speed_scale(GameManager.game_speed)
+	right_racoon.set_speed_scale(GameManager.game_speed)
 	
 	if GameManager.round_count > 1:
 		
 		if GameManager.p1_just_failed == false && GameManager.p2_just_failed == false:
 			win_music.play()
+			left_racoon.play("win")
+			right_racoon.play("win")
+			
 		elif GameManager.p1_just_failed == true && GameManager.p2_just_failed == true:
 			lose_music.play()
+			left_racoon.play("lose")
+			right_racoon.play("lose")
 		else:
 			neutral_music.play()
+			if GameManager.p1_just_failed == false && GameManager.p2_just_failed == true:
+				left_racoon.play("win")
+				right_racoon.play("lose")
+			elif GameManager.p1_just_failed == true && GameManager.p2_just_failed == false:
+				left_racoon.play("lose")
+				right_racoon.play("win")
 		
 		if GameManager.speed_up_now == true:
 			countdown_timer.set_wait_time((2) / (GameManager.game_speed) + ((4 + 1.375) / (GameManager.game_speed + 0.125))) # each part of song is 2sec. 1 sec of the intermission is played here, the other 1 sec is played in the game scene
@@ -66,11 +82,14 @@ func _ready():
 		
 	else:
 		GameManager.intermission_music.play()
+		left_racoon.play("intermission")
+		right_racoon.play("intermission")
 			
 	countdown_label.show()
 	countdown_timer.start()
-	background_animation.set_speed_scale(GameManager.game_speed)
+	
 	background_animation.play()
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -89,11 +108,17 @@ func _on_countdown_timer_timeout():
 
 func _on_intermission_music_timer_timeout():
 	GameManager.intermission_music.play()
+	left_racoon.play("intermission")
+	right_racoon.play("intermission")
 
 
 func _on_speed_up_music_timer_timeout():
 	GameManager.game_speed += 0.125
 	background_animation.set_speed_scale(GameManager.game_speed)
+	left_racoon.set_speed_scale(GameManager.game_speed)
+	right_racoon.set_speed_scale(GameManager.game_speed)
 	GameManager.intermission_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.play()
+	left_racoon.play("intermission")
+	right_racoon.play("intermission")
