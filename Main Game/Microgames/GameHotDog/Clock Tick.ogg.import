@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://xeechu6dhxx5"
+path="res://.godot/imported/Clock Tick.ogg-3bb06b04132b1da2b435d21aed4f4aee.oggvorbisstr"
+
+[deps]
+
+source_file="res://Main Game/Microgames/GameHotDog/Clock Tick.ogg"
+dest_files=["res://.godot/imported/Clock Tick.ogg-3bb06b04132b1da2b435d21aed4f4aee.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

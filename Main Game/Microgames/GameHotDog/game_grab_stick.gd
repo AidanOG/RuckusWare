@@ -11,7 +11,13 @@ extends Node
 @export var target_timer_1: Timer
 @export var target_timer_2: Timer
 @export var game_timer: Timer
+@export var tick_timer_1: Timer
+@export var tick_timer_2: Timer
+@export var tick_timer_3: Timer
+@export var early_finish_timer_1: Timer
+@export var early_finish_timer_2: Timer
 @export var game_music: AudioStreamPlayer
+@export var tick: AudioStreamPlayer
 
 var catchable_1
 var catchable_2
@@ -19,6 +25,8 @@ var failed_1 = false
 var failed_2 = false
 var success_1 = false
 var success_2 = false
+var done_1 = false
+var done_2 = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,13 +59,23 @@ func _ready():
 	catchable_1 = false
 	catchable_2 = false
 	
-	game_timer.set_wait_time(5/ GameManager.game_speed)
-	target_timer_1.set_wait_time(randf_range(0.0, (1.5/ GameManager.game_speed)))
+	game_timer.set_wait_time(7.5/ GameManager.game_speed)
+	early_finish_timer_1.set_wait_time((7.5 - 4.5)/ GameManager.game_speed)
+	early_finish_timer_2.set_wait_time((7.5 - 2.5)/ GameManager.game_speed)
+	tick_timer_1.set_wait_time((7.5 - 0.5)/GameManager.game_speed)
+	tick_timer_2.set_wait_time((7.5 - 1.0)/GameManager.game_speed)
+	tick_timer_3.set_wait_time((7.5 - 1.5)/GameManager.game_speed)
+	target_timer_1.set_wait_time(randf_range(0.0, (5.5/ GameManager.game_speed)))
 	target_timer_1.start()
-	target_timer_2.set_wait_time(randf_range(0.0, (1.5/ GameManager.game_speed)))
+	target_timer_2.set_wait_time(randf_range(0.0, (5.5/ GameManager.game_speed)))
 	target_timer_2.start()
 	
+	tick_timer_1.start()
+	tick_timer_2.start()
+	tick_timer_3.start()
 	game_timer.start()
+	early_finish_timer_1.start()
+	early_finish_timer_2.start()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,9 +85,11 @@ func _process(delta):
 			target_1.target_gravity = 0
 			target_1.velocity.y = 0
 			success_1 = true
+			done_1 = true
 			print("p1 success")
 		elif catchable_1 == false && success_1 == false:
 			failed_1 = true
+			done_1 = true
 			print("p1 failure early")
 			GameManager.p1_just_failed = true
 	
@@ -78,9 +98,11 @@ func _process(delta):
 			target_2.target_gravity = 0
 			target_2.velocity.y = 0
 			success_2 = true
+			done_2 = true
 			print("p2 success")
 		elif catchable_2 == false && success_2 == false:
 			failed_2 = true
+			done_2 = true
 			print('p2 failure early')
 			GameManager.p2_just_failed = true
 
@@ -93,6 +115,7 @@ func _on_catcher_1_area_exited(area):
 		catchable_1 = false
 		print("p1 failure late")
 		GameManager.p1_just_failed = true
+		done_1 = true
 
 
 func _on_catcher_2_area_entered(area):
@@ -103,20 +126,58 @@ func _on_catcher_2_area_exited(area):
 		catchable_2 = false
 		print("p2 failure late")
 		GameManager.p2_just_failed = true
+		done_2 = true
 
 
 func _on_game_timer_timeout():
+	tick.play()
+	print("tick")
 	get_tree().paused = true
 	var transition_tween = get_tree().create_tween()
 	transition_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	transition_tween.tween_property(transition_rect, "scale", Vector2(1, 1), (0.75 / GameManager.game_speed) )
+	transition_tween.tween_property(transition_rect, "scale", Vector2(1, 1), (0.5 / GameManager.game_speed) )
 	
 	#var audio_tween = get_tree().create_tween()
 	#audio_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	#audio_tween.tween_property(game_music, "volume_db", -60, (1/ GameManager.game_speed)) # -80 db is 0 volume
 	
 	
-	await get_tree().create_timer(1/ GameManager.game_speed).timeout
+	await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
 	get_tree().paused = false
 	game_music.stop()
+	
 	get_tree().change_scene_to_packed(SceneManager.main_scene)
+
+
+func _on_tick_timer_1_timeout():
+	print("tick")
+	tick.play()
+
+
+func _on_tick_timer_2_timeout():
+	print("tick")
+	tick.play()
+
+
+func _on_tick_timer_3_timeout():
+	print("tick")
+	tick.play()
+
+
+func _on_early_finish_timeout():
+	print("testing for early finish")
+	if done_1 == true && done_2 == true:
+		print("skip!")
+		early_finish_timer_2.stop()
+		await get_tree().create_timer(0.25/ GameManager.game_speed).timeout
+		game_timer.set_wait_time(0.25/ GameManager.game_speed)
+		game_timer.start()
+
+
+func _on_early_finish_2_timeout():
+	print("testing for early finish")
+	if done_1 == true && done_2 == true:
+		print("skip!")
+		await get_tree().create_timer(0.25/ GameManager.game_speed).timeout
+		game_timer.set_wait_time(0.25/ GameManager.game_speed)
+		game_timer.start()

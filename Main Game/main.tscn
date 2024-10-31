@@ -62,6 +62,9 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("10_1fh8p")
+}, {
+"duration": 1.0,
 "texture": ExtResource("3_f3lr2")
 }, {
 "duration": 1.0,
@@ -81,9 +84,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("9_f4elw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_1fh8p")
 }],
 "loop": true,
 "name": &"intermission",
@@ -200,6 +200,9 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("6_bgpuh")
+}, {
+"duration": 1.0,
 "texture": ExtResource("7_f3cw8")
 }, {
 "duration": 1.0,
@@ -219,9 +222,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_uhyiv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_bgpuh")
 }],
 "loop": true,
 "name": &"intermission",
@@ -359,12 +359,12 @@ offset = Vector2(960, 540)
 
 [node name="LeftRacoon" type="AnimatedSprite2D" parent="CanvasLayer"]
 sprite_frames = SubResource("SpriteFrames_vdf6n")
-animation = &"win"
+animation = &"intermission"
 offset = Vector2(960, 540)
 
 [node name="RightRacoon" type="AnimatedSprite2D" parent="CanvasLayer"]
 sprite_frames = SubResource("SpriteFrames_l7grg")
-animation = &"win"
+animation = &"lose"
 offset = Vector2(960, 540)
 flip_h = true
 
