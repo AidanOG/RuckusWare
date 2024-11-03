@@ -19,6 +19,9 @@ extends Node
 @export var game_music: AudioStreamPlayer
 @export var tick: AudioStreamPlayer
 
+@export var sfx_whip: AudioStreamPlayer
+@export var sfx_miss: AudioStreamPlayer
+
 var catchable_1
 var catchable_2
 var failed_1 = false
@@ -87,11 +90,13 @@ func _process(delta):
 			success_1 = true
 			done_1 = true
 			print("p1 success")
+			sfx_whip.play()
 		elif catchable_1 == false && success_1 == false:
 			failed_1 = true
 			done_1 = true
 			print("p1 failure early")
 			GameManager.p1_just_failed = true
+			sfx_miss.play()
 	
 	if Input.is_action_just_pressed("any_button_1"):
 		if catchable_2 == true && failed_2 == false:
@@ -100,11 +105,13 @@ func _process(delta):
 			success_2 = true
 			done_2 = true
 			print("p2 success")
+			sfx_whip.play()
 		elif catchable_2 == false && success_2 == false:
 			failed_2 = true
 			done_2 = true
 			print('p2 failure early')
 			GameManager.p2_just_failed = true
+			sfx_miss.play()
 
 
 func _on_catcher_1_area_entered(area):
@@ -116,6 +123,7 @@ func _on_catcher_1_area_exited(area):
 		print("p1 failure late")
 		GameManager.p1_just_failed = true
 		done_1 = true
+		sfx_miss.play()
 
 
 func _on_catcher_2_area_entered(area):
@@ -127,6 +135,7 @@ func _on_catcher_2_area_exited(area):
 		print("p2 failure late")
 		GameManager.p2_just_failed = true
 		done_2 = true
+		sfx_miss.play()
 
 
 func _on_game_timer_timeout():

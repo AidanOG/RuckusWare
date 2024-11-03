@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvyrijkk18iiq"]
+[gd_scene load_steps=14 format=3 uid="uid://bvyrijkk18iiq"]
 
 [ext_resource type="Script" path="res://Main Game/Microgames/GameHotDog/game_grab_stick.gd" id="1_kq6cc"]
 [ext_resource type="Texture2D" uid="uid://cc2q3wlpnktnj" path="res://filedf3d.svg" id="2_vj5kf"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://Main Game/Microgames/GameHotDog/target_2.gd" id="5_raimr"]
 [ext_resource type="AudioStream" uid="uid://xeechu6dhxx5" path="res://Main Game/Microgames/GameHotDog/Clock Tick.ogg" id="6_0a8a6"]
 [ext_resource type="AudioStream" uid="uid://das6oobng6oby" path="res://Main Game/Microgames/GameHotDog/Hot Dog Microgame.wav" id="6_1r5kp"]
+[ext_resource type="AudioStream" uid="uid://buibp2b0abqwv" path="res://Main Game/Microgames/GameHotDog/Whip SFX Edit.ogg" id="8_2wlr6"]
+[ext_resource type="AudioStream" uid="uid://bddoivq3omn65" path="res://Main Game/Microgames/GameHotDog/FF Miss 1 SFX Edit.ogg" id="9_b4hjr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qsfbx"]
 animations = [{
@@ -34,7 +36,7 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r10md"]
 
-[node name="GameGrabStick" type="Node" node_paths=PackedStringArray("transition_rect", "target_1", "target_2", "target_1_collision", "target_2_collision", "catcher_1_collision", "catcher_2_collision", "target_timer_1", "target_timer_2", "game_timer", "tick_timer_1", "tick_timer_2", "tick_timer_3", "early_finish_timer_1", "early_finish_timer_2", "game_music", "tick")]
+[node name="GameGrabStick" type="Node" node_paths=PackedStringArray("transition_rect", "target_1", "target_2", "target_1_collision", "target_2_collision", "catcher_1_collision", "catcher_2_collision", "target_timer_1", "target_timer_2", "game_timer", "tick_timer_1", "tick_timer_2", "tick_timer_3", "early_finish_timer_1", "early_finish_timer_2", "game_music", "tick", "sfx_whip", "sfx_miss")]
 script = ExtResource("1_kq6cc")
 transition_rect = NodePath("CanvasLayer/Control/TransitionRect")
 target_1 = NodePath("Target1")
@@ -52,7 +54,9 @@ tick_timer_3 = NodePath("TickTimer3")
 early_finish_timer_1 = NodePath("EarlyFinish1")
 early_finish_timer_2 = NodePath("EarlyFinish2")
 game_music = NodePath("GameMusic")
-tick = NodePath("TickSFX")
+tick = NodePath("SFXTick")
+sfx_whip = NodePath("SFXWhip")
+sfx_miss = NodePath("SFXMiss")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -156,7 +160,7 @@ one_shot = true
 [node name="GameTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="TickSFX" type="AudioStreamPlayer" parent="."]
+[node name="SFXTick" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("6_0a8a6")
 volume_db = 8.0
@@ -164,6 +168,12 @@ volume_db = 8.0
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("6_1r5kp")
+
+[node name="SFXWhip" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_2wlr6")
+
+[node name="SFXMiss" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_b4hjr")
 
 [connection signal="area_entered" from="Catcher1" to="." method="_on_catcher_1_area_entered"]
 [connection signal="area_exited" from="Catcher1" to="." method="_on_catcher_1_area_exited"]
