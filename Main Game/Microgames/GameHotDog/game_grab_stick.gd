@@ -56,10 +56,10 @@ func _ready():
 		catcher_1_collision.scale = Vector2(6, 6)
 		catcher_2_collision.scale = Vector2(6, 6)
 	
-	await get_tree().create_timer(0.125 / GameManager.game_speed).timeout
+	#await get_tree().create_timer(0.125 / GameManager.game_speed).timeout
 	var transition_tween = get_tree().create_tween()
 	transition_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	transition_tween.tween_property(transition_rect, "scale", Vector2(3, 3), (0.75 / GameManager.game_speed))
+	transition_tween.tween_property(transition_rect, "scale", Vector2(10, 10), (0.5 / GameManager.game_speed))
 	# transition_tween.tween_property(transition_rect, "scale", Vector2(1, 1), 1)
 	await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
 	get_tree().paused = false
