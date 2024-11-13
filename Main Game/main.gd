@@ -16,6 +16,8 @@ extends Node
 @export var right_racoon: AnimatedSprite2D
 @export var background_animation: AnimatedSprite2D
 
+var speed_up_addend = 0.06
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -69,8 +71,8 @@ func _ready():
 				right_racoon.play("win")
 		
 		if GameManager.speed_up_now == true:
-			countdown_timer.set_wait_time((2.00) / (GameManager.game_speed) + ((4.00 + 1.375) / (GameManager.game_speed + 0.125))) # each part of song is 2sec. 1.375 sec of the intermission is played here, the other 0.625 sec is played in the game scene
-			intermission_music_timer.set_wait_time((2.00)/ (GameManager.game_speed) + (4.00 / (GameManager.game_speed + 0.125)))
+			countdown_timer.set_wait_time((2.00) / (GameManager.game_speed) + ((4.00 + 1.375) / (GameManager.game_speed + speed_up_addend))) # each part of song is 2sec. 1.375 sec of the intermission is played here, the other 0.625 sec is played in the game scene
+			intermission_music_timer.set_wait_time((2.00)/ (GameManager.game_speed) + (4.00 / (GameManager.game_speed + speed_up_addend)))
 			speed_up_music_timer.set_wait_time((2.00)/ GameManager.game_speed)
 			speed_up_music_timer.start()
 			GameManager.speed_up_now = false
@@ -113,7 +115,7 @@ func _on_intermission_music_timer_timeout():
 
 
 func _on_speed_up_music_timer_timeout():
-	GameManager.game_speed += 0.125
+	GameManager.game_speed += speed_up_addend
 	background_animation.set_speed_scale(GameManager.game_speed)
 	left_racoon.set_speed_scale(GameManager.game_speed)
 	right_racoon.set_speed_scale(GameManager.game_speed)
