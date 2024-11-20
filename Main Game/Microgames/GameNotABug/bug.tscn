@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm81e58ytjur0"]
+
+[ext_resource type="Texture2D" uid="uid://dinrjagr3thwi" path="res://icon.svg" id="1_a4r1r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sv8lq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_a4r1r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sk3s6"]
+
+[node name="Bug" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_sv8lq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_sk3s6")

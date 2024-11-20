@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://baxynsm3r0qm4"]
+[gd_scene load_steps=14 format=3 uid="uid://baxynsm3r0qm4"]
 
 [ext_resource type="Script" path="res://Main Game/Microgames/GameNotABug/game_not_a_bug.gd" id="1_vh1yf"]
+[ext_resource type="PackedScene" uid="uid://cm81e58ytjur0" path="res://Main Game/Microgames/GameNotABug/bug.tscn" id="2_ehy0d"]
 [ext_resource type="Texture2D" uid="uid://bl0m4gkoiwpfa" path="res://scuffed transition2 no onionskin.png" id="2_ww7di"]
 [ext_resource type="Script" path="res://Main Game/Microgames/GameNotABug/swatter1.gd" id="3_7qhjw"]
 [ext_resource type="AudioStream" uid="uid://das6oobng6oby" path="res://Main Game/Microgames/GameHotDog/Hot Dog Microgame.wav" id="3_mjttm"]
@@ -42,13 +43,14 @@ transition_rect = NodePath("CanvasLayer/Control/TransitionRect")
 game_timer = NodePath("GameTimer")
 tick_timer_1 = NodePath("TickTimer1")
 tick_timer_2 = NodePath("TickTimer2")
-tick_timer_3 = NodePath("TIckTimer3")
+tick_timer_3 = NodePath("TickTimer3")
 early_finish_timer_1 = NodePath("EarlyFinish1")
 early_finish_timer_2 = NodePath("EarlyFinish2")
 early_finish_timer_3 = NodePath("EarlyFinish3")
 game_music = NodePath("GameMusic")
 tick = NodePath("SFXTick")
 timer_bar = NodePath("CanvasLayer/Control/ProgressBar")
+bug_scene = ExtResource("2_ehy0d")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -89,11 +91,12 @@ grow_horizontal = 2
 grow_vertical = 2
 show_percentage = false
 
-[node name="Swatter1" type="CharacterBody2D" parent="." node_paths=PackedStringArray("swat_cooldown_timer")]
+[node name="Swatter1" type="CharacterBody2D" parent="." node_paths=PackedStringArray("swat_cooldown_timer", "swat_area")]
 position = Vector2(640, 540)
 collision_mask = 2
 script = ExtResource("3_7qhjw")
 swat_cooldown_timer = NodePath("SwatCooldownTimer")
+swat_area = NodePath("Area2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Swatter1"]
 scale = Vector2(1.5, 1.5)
@@ -104,6 +107,7 @@ scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_ctjvn")
 
 [node name="Area2D" type="Area2D" parent="Swatter1"]
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Swatter1/Area2D"]
 scale = Vector2(10, 10)
@@ -112,11 +116,12 @@ shape = SubResource("RectangleShape2D_ctjvn")
 [node name="SwatCooldownTimer" type="Timer" parent="Swatter1"]
 one_shot = true
 
-[node name="Swatter2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("swat_cooldown_timer")]
+[node name="Swatter2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("swat_cooldown_timer", "swat_area")]
 position = Vector2(1280, 540)
 collision_mask = 2
 script = ExtResource("5_7m6i4")
 swat_cooldown_timer = NodePath("SwatCooldownTimer")
+swat_area = NodePath("Area2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Swatter2"]
 scale = Vector2(1.5, 1.5)
@@ -127,6 +132,7 @@ scale = Vector2(10, 10)
 shape = SubResource("RectangleShape2D_3i1jw")
 
 [node name="Area2D" type="Area2D" parent="Swatter2"]
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Swatter2/Area2D"]
 scale = Vector2(10, 10)
@@ -144,7 +150,7 @@ one_shot = true
 [node name="TickTimer2" type="Timer" parent="."]
 one_shot = true
 
-[node name="TIckTimer3" type="Timer" parent="."]
+[node name="TickTimer3" type="Timer" parent="."]
 one_shot = true
 
 [node name="EarlyFinish1" type="Timer" parent="."]
@@ -201,10 +207,12 @@ collision_mask = 0
 scale = Vector2(10, 80)
 shape = SubResource("RectangleShape2D_syepj")
 
+[connection signal="splat_1" from="Swatter1" to="." method="_on_swatter_1_splat_1"]
+[connection signal="splat_2" from="Swatter2" to="." method="_on_swatter_2_splat_2"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
 [connection signal="timeout" from="TickTimer1" to="." method="_on_tick_timer_1_timeout"]
 [connection signal="timeout" from="TickTimer2" to="." method="_on_tick_timer_2_timeout"]
-[connection signal="timeout" from="TIckTimer3" to="." method="_on_t_ick_timer_3_timeout"]
+[connection signal="timeout" from="TickTimer3" to="." method="_on_t_ick_timer_3_timeout"]
 [connection signal="timeout" from="EarlyFinish1" to="." method="_on_early_finish_1_timeout"]
 [connection signal="timeout" from="EarlyFinish2" to="." method="_on_early_finish_2_timeout"]
 [connection signal="timeout" from="EarlyFinish3" to="." method="_on_early_finish_3_timeout"]

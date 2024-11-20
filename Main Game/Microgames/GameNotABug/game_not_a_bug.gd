@@ -12,12 +12,14 @@ extends Node
 @export var tick: AudioStreamPlayer
 @export var timer_bar: ProgressBar
 
-var failed_1 = false
-var failed_2 = false
-var success_1 = false
-var success_2 = false
+@export var bug_scene: PackedScene
+#@export var the_whole_microgame: Node
+
 var done_1 = false
 var done_2 = false
+
+var num_swatted_1 = 0
+var num_swatted_2 = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,6 +29,19 @@ func _ready():
 	timer_bar.max_value = 7.5/GameManager.game_speed
 	timer_bar.min_value = 0
 	timer_bar.value = 7.5
+	
+	for i in range(0,3):
+		var bug = bug_scene.instantiate()
+		bug.position = Vector2(randi_range(0 + 100, 1920/2 - 100), randi_range(0 + 100, 1080 - 100))
+		#bug.position = Vector2(randi_range(500, 550), randi_range(500, 550))
+		print(bug.position)
+		add_child(bug)
+	for i in range(0, 3):
+		var bug = bug_scene.instantiate()
+		bug.position = Vector2(randi_range(1920/2 + 100, 1920 - 100), randi_range(0 + 100, 1080 - 100))
+		#bug.position = Vector2(randi_range(500, 550), randi_range(500, 550))
+		print(bug.position)
+		add_child(bug)
 	
 	get_tree().paused = true
 	
@@ -132,3 +147,17 @@ func _on_game_timer_timeout():
 	game_music.stop()
 	
 	get_tree().change_scene_to_packed(SceneManager.main_scene)
+
+
+func _on_swatter_1_splat_1():
+	num_swatted_1 += 1
+	if num_swatted_1 >= 3:
+		done_1 = true
+		GameManager.p1_just_failed = false
+
+
+func _on_swatter_2_splat_2():
+	num_swatted_2 += 1
+	if num_swatted_2 >= 3:
+		done_2 = true
+		GameManager.p2_just_failed = false
