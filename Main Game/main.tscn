@@ -364,7 +364,7 @@ offset = Vector2(960, 540)
 
 [node name="RightRacoon" type="AnimatedSprite2D" parent="CanvasLayer"]
 sprite_frames = SubResource("SpriteFrames_l7grg")
-animation = &"lose"
+animation = &"intermission"
 offset = Vector2(960, 540)
 flip_h = true
 

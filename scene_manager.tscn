@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqkgr2i4qd58u"]
+[gd_scene load_steps=7 format=3 uid="uid://dqkgr2i4qd58u"]
 
 [ext_resource type="Script" path="res://scene_manager.gd" id="1_hsc1j"]
 [ext_resource type="PackedScene" uid="uid://cs24wjdmotfo" path="res://Start Screen/start_screen.tscn" id="2_yjxft"]
 [ext_resource type="PackedScene" uid="uid://nvxl21de0npd" path="res://Main Game/main.tscn" id="3_mjosn"]
 [ext_resource type="PackedScene" uid="uid://cfjqecx2pv2eu" path="res://Main Game/Microgames (Boss)/boss_quiz.tscn" id="4_2xbhx"]
 [ext_resource type="PackedScene" uid="uid://bvyrijkk18iiq" path="res://Main Game/Microgames/GameHotDog/game_grab_stick.tscn" id="4_8akp7"]
+[ext_resource type="PackedScene" uid="uid://baxynsm3r0qm4" path="res://Main Game/Microgames/GameNotABug/game_not_a_bug.tscn" id="5_k7xwi"]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource("1_hsc1j")
 start_screen = ExtResource("2_yjxft")
 main_scene = ExtResource("3_mjosn")
 grab_stick = ExtResource("4_8akp7")
+not_a_bug = ExtResource("5_k7xwi")
 boss_quiz = ExtResource("4_2xbhx")

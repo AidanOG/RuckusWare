@@ -16,6 +16,7 @@ extends Node
 @export var right_racoon: AnimatedSprite2D
 @export var background_animation: AnimatedSprite2D
 
+var next_game = 0
 var speed_up_addend = 0.06
 
 
@@ -107,7 +108,11 @@ func _on_countdown_timer_timeout():
 	GameManager.p1_just_failed = false
 	GameManager.p2_just_failed = false
 	if GameManager.p1_lives > 0 && GameManager.p2_lives > 0:
-		get_tree().change_scene_to_packed(SceneManager.grab_stick)
+		next_game = randi_range(0, 1)
+		if(next_game == 0):
+			get_tree().change_scene_to_packed(SceneManager.grab_stick)
+		elif(next_game == 1):
+			get_tree().change_scene_to_packed(SceneManager.not_a_bug)
 
 
 func _on_intermission_music_timer_timeout():
@@ -124,5 +129,6 @@ func _on_speed_up_music_timer_timeout():
 	GameManager.intermission_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.play()
+	# change to speed up animation
 	left_racoon.play("intermission")
 	right_racoon.play("intermission")

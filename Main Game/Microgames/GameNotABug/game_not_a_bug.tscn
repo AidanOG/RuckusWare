@@ -1,0 +1,152 @@
+[gd_scene load_steps=12 format=3 uid="uid://baxynsm3r0qm4"]
+
+[ext_resource type="Script" path="res://Main Game/Microgames/GameNotABug/game_not_a_bug.gd" id="1_vh1yf"]
+[ext_resource type="Texture2D" uid="uid://bl0m4gkoiwpfa" path="res://scuffed transition2 no onionskin.png" id="2_ww7di"]
+[ext_resource type="Script" path="res://Main Game/Microgames/GameNotABug/swatter1.gd" id="3_7qhjw"]
+[ext_resource type="AudioStream" uid="uid://das6oobng6oby" path="res://Main Game/Microgames/GameHotDog/Hot Dog Microgame.wav" id="3_mjttm"]
+[ext_resource type="Texture2D" uid="uid://dinrjagr3thwi" path="res://icon.svg" id="4_dhk33"]
+[ext_resource type="AudioStream" uid="uid://xeechu6dhxx5" path="res://Main Game/Microgames/GameHotDog/Clock Tick.ogg" id="4_novgu"]
+[ext_resource type="Script" path="res://Main Game/Microgames/GameNotABug/swatter2.gd" id="5_7m6i4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_71c6v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_dhk33")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ctjvn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywkb8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_dhk33")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3i1jw"]
+
+[node name="GameNotABug" type="Node" node_paths=PackedStringArray("transition_rect", "game_timer", "tick_timer_1", "tick_timer_2", "tick_timer_3", "early_finish_timer_1", "early_finish_timer_2", "early_finish_timer_3", "game_music", "tick", "timer_bar")]
+script = ExtResource("1_vh1yf")
+transition_rect = NodePath("CanvasLayer/Control/TransitionRect")
+game_timer = NodePath("GameTimer")
+tick_timer_1 = NodePath("TickTimer1")
+tick_timer_2 = NodePath("TickTimer2")
+tick_timer_3 = NodePath("TIckTimer3")
+early_finish_timer_1 = NodePath("EarlyFinish1")
+early_finish_timer_2 = NodePath("EarlyFinish2")
+early_finish_timer_3 = NodePath("EarlyFinish3")
+game_music = NodePath("GameMusic")
+tick = NodePath("SFXTick")
+timer_bar = NodePath("CanvasLayer/Control/ProgressBar")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TransitionRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 540)
+texture = ExtResource("2_ww7di")
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -900.0
+offset_top = 460.0
+offset_right = 900.0
+offset_bottom = 490.0
+grow_horizontal = 2
+grow_vertical = 2
+show_percentage = false
+
+[node name="Swatter1" type="CharacterBody2D" parent="."]
+position = Vector2(640, 540)
+collision_mask = 0
+script = ExtResource("3_7qhjw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Swatter1"]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_71c6v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Swatter1"]
+scale = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_ctjvn")
+
+[node name="Swatter2" type="CharacterBody2D" parent="."]
+position = Vector2(1280, 540)
+collision_mask = 0
+script = ExtResource("5_7m6i4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Swatter2"]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_ywkb8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Swatter2"]
+scale = Vector2(10, 10)
+shape = SubResource("RectangleShape2D_3i1jw")
+
+[node name="GameTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TickTimer1" type="Timer" parent="."]
+one_shot = true
+
+[node name="TickTimer2" type="Timer" parent="."]
+one_shot = true
+
+[node name="TIckTimer3" type="Timer" parent="."]
+one_shot = true
+
+[node name="EarlyFinish1" type="Timer" parent="."]
+one_shot = true
+
+[node name="EarlyFinish2" type="Timer" parent="."]
+one_shot = true
+
+[node name="EarlyFinish3" type="Timer" parent="."]
+one_shot = true
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_mjttm")
+
+[node name="SFXTick" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("4_novgu")
+volume_db = 8.0
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="timeout" from="TickTimer1" to="." method="_on_tick_timer_1_timeout"]
+[connection signal="timeout" from="TickTimer2" to="." method="_on_tick_timer_2_timeout"]
+[connection signal="timeout" from="TIckTimer3" to="." method="_on_t_ick_timer_3_timeout"]
+[connection signal="timeout" from="EarlyFinish1" to="." method="_on_early_finish_1_timeout"]
+[connection signal="timeout" from="EarlyFinish2" to="." method="_on_early_finish_2_timeout"]
+[connection signal="timeout" from="EarlyFinish3" to="." method="_on_early_finish_3_timeout"]

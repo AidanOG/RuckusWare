@@ -127,6 +127,8 @@ func _process(delta):
 			done_2 = true
 			print('p2 failure early')
 			GameManager.p2_just_failed = true
+			
+	
 
 
 func _on_catcher_1_area_entered(area):
