@@ -9,7 +9,7 @@ signal splat_1
 var splatted = 0
 
 func _physics_process(delta):
-	if swat_cooldown_timer.get_time_left() <= 0:
+	if swat_cooldown_timer.get_time_left() <= 0 && splatted < 3:
 		
 		if Input.is_action_just_pressed("any_button_0"):
 			swat_cooldown_timer.wait_time = 0.5/GameManager.game_speed

@@ -7,8 +7,13 @@ var behavior
 
 var SPEED = 750 * GameManager.game_speed
 var direction
+
 var angle
 var angular_speed
+
+var amplitude
+var frequency
+var time
 
 
 # Called when the node enters the scene tree for the first time.
@@ -42,10 +47,19 @@ func _physics_process(delta):
 			#velocity.bounce(collision_info.get_normal())
 			angle += PI
 			angular_speed = randf_range(angular_speed * -0.5, angular_speed * -1.25)
+			
+	if behavior == 2:
+		time += delta
+		velocity.x = SPEED
+		velocity.y = cos(time*frequency)*amplitude
+		velocity = velocity.rotated(angle) * delta
+		var collision_info = move_and_collide(velocity)
+		if(collision_info):
+			_on_behavior_timer_timeout()
 		
 
 func _on_behavior_timer_timeout():
-	behavior = randi_range(0, 1)
+	behavior = randi_range(0, 2)
 
 	if behavior == 0:
 		while true:
@@ -53,12 +67,18 @@ func _on_behavior_timer_timeout():
 			if direction != Vector2(0,0):
 				break
 	
-	if behavior == 1:
+	elif behavior == 1:
 		angle = randf_range(0, 2 * PI)
 		while true:
 			angular_speed = randf_range(-3 * PI * GameManager.game_speed, 3 * PI * GameManager.game_speed)
 			if angular_speed != 0:
 				break
+	
+	elif behavior == 2:
+		time = 0
+		frequency = randf_range(0.5 * PI * GameManager.game_speed, 4.0 * PI * GameManager.game_speed)
+		amplitude = randf_range(800.0, 2000.0)
+		angle = randf_range(0, 2 * PI)
 	
 	behavior_timer.set_wait_time(randf_range(0.5/GameManager.game_speed, 5/GameManager.game_speed))
 	behavior_timer.start()

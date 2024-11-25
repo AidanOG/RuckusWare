@@ -9,7 +9,7 @@ signal splat_2
 var splatted = 0
 
 func _physics_process(delta):
-	if swat_cooldown_timer.get_time_left() <= 0:
+	if swat_cooldown_timer.get_time_left() <= 0 && splatted < 3:
 		
 		if Input.is_action_just_pressed("any_button_1"):
 			swat_cooldown_timer.wait_time = 0.5/GameManager.game_speed
@@ -25,8 +25,7 @@ func _physics_process(delta):
 			
 			swat_cooldown_timer.wait_time = 0.5/GameManager.game_speed
 			swat_cooldown_timer.start()
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
+
 		var direction = Input.get_vector("move_left_1", "move_right_1", "move_up_1", "move_down_1")
 		if direction:
 			velocity = direction * SPEED
