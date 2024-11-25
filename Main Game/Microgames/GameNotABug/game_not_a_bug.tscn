@@ -92,6 +92,7 @@ grow_vertical = 2
 show_percentage = false
 
 [node name="Swatter1" type="CharacterBody2D" parent="." node_paths=PackedStringArray("swat_cooldown_timer", "swat_area")]
+z_index = 1
 position = Vector2(640, 540)
 collision_mask = 2
 script = ExtResource("3_7qhjw")
@@ -117,6 +118,7 @@ shape = SubResource("RectangleShape2D_ctjvn")
 one_shot = true
 
 [node name="Swatter2" type="CharacterBody2D" parent="." node_paths=PackedStringArray("swat_cooldown_timer", "swat_area")]
+z_index = 1
 position = Vector2(1280, 540)
 collision_mask = 2
 script = ExtResource("5_7m6i4")
@@ -173,7 +175,7 @@ volume_db = 8.0
 
 [node name="WallBottom" type="StaticBody2D" parent="."]
 position = Vector2(960, 1180)
-collision_layer = 2
+collision_layer = 6
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom"]
@@ -182,7 +184,7 @@ shape = SubResource("RectangleShape2D_syepj")
 
 [node name="WallTop" type="StaticBody2D" parent="."]
 position = Vector2(960, -100)
-collision_layer = 2
+collision_layer = 6
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop"]
@@ -191,7 +193,7 @@ shape = SubResource("RectangleShape2D_syepj")
 
 [node name="WallLeft" type="StaticBody2D" parent="."]
 position = Vector2(-100, 540)
-collision_layer = 2
+collision_layer = 6
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
@@ -200,7 +202,7 @@ shape = SubResource("RectangleShape2D_syepj")
 
 [node name="WallRight" type="StaticBody2D" parent="."]
 position = Vector2(2020, 540)
-collision_layer = 2
+collision_layer = 6
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]

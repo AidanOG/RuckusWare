@@ -30,6 +30,13 @@ func _ready():
 	timer_bar.min_value = 0
 	timer_bar.value = 7.5
 	
+	if GameManager.game_level == 1:
+		pass
+	elif GameManager.game_level == 2:
+		pass
+	elif GameManager.game_level == 3:
+		pass
+	
 	for i in range(0,3):
 		var bug = bug_scene.instantiate()
 		bug.position = Vector2(randi_range(0 + 100, 1920/2 - 100), randi_range(0 + 100, 1080 - 100))
@@ -44,13 +51,6 @@ func _ready():
 		add_child(bug)
 	
 	get_tree().paused = true
-	
-	if GameManager.game_level == 1:
-		pass
-	elif GameManager.game_level == 2:
-		pass
-	elif GameManager.game_level == 3:
-		pass
 	
 	#await get_tree().create_timer(0.125 / GameManager.game_speed).timeout
 	var transition_tween = get_tree().create_tween()

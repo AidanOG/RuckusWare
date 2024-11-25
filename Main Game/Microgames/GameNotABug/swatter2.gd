@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var swat_cooldown_timer: Timer
 @export var swat_area: Area2D
 
-var SPEED = 1000.0 * GameManager.game_speed
+var SPEED = 1200.0 * GameManager.game_speed
 
 signal splat_2
 var splatted = 0
@@ -14,7 +14,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("any_button_1"):
 			swat_cooldown_timer.wait_time = 0.5/GameManager.game_speed
 			swat_cooldown_timer.start()
-			var splat_candidates = swat_area.get_overlapping_areas()
+			var splat_candidates = swat_area.get_overlapping_bodies()
 			print(splat_candidates)
 			
 			for i in len(splat_candidates):
