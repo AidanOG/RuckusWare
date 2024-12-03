@@ -13,7 +13,7 @@ extends Node
 @export var timer_bar: ProgressBar
 
 @export var bug_scene: PackedScene
-#@export var the_whole_microgame: Node
+
 
 var done_1 = false
 var done_2 = false

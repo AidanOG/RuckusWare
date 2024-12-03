@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbj5ok0hqnu0l"]
+
+[ext_resource type="Script" path="res://Main Game/Microgames (Boss)/BossQuiz/boss_quiz.gd" id="1_ej77l"]
+[ext_resource type="Texture2D" uid="uid://bl0m4gkoiwpfa" path="res://scuffed transition2 no onionskin.png" id="2_d0owr"]
+[ext_resource type="AudioStream" uid="uid://das6oobng6oby" path="res://Main Game/Microgames/GameHotDog/Hot Dog Microgame.wav" id="3_ckhsl"]
+
+[node name="BossQuiz" type="Node" node_paths=PackedStringArray("transition_rect", "game_music")]
+script = ExtResource("1_ej77l")
+transition_rect = NodePath("CanvasLayer/Control/TransitionRect")
+game_music = NodePath("GameMusic")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TransitionRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(960, 540)
+texture = ExtResource("2_d0owr")
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_ckhsl")
