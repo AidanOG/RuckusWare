@@ -1,4 +1,5 @@
-extends Node
+class_name GameGrabStick
+extends BaseMicrogame
 # 120 BPM = 2 BPS
 # 0.5 s = 1 beat
 @export var transition_rect: TextureRect
@@ -169,12 +170,12 @@ func _on_game_timer_timeout():
 	#audio_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	#audio_tween.tween_property(game_music, "volume_db", -60, (1/ GameManager.game_speed)) # -80 db is 0 volume
 	
-	
 	await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
 	get_tree().paused = false
 	game_music.stop()
 	
-	get_tree().change_scene_to_packed(SceneManager.main_scene)
+	all_done.emit()
+	#get_tree().change_scene_to_packed(SceneManager.main_scene)
 
 
 func _on_tick_timer_1_timeout():

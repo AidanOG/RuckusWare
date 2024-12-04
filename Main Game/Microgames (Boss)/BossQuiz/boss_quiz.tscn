@@ -4,10 +4,23 @@
 [ext_resource type="Texture2D" uid="uid://bl0m4gkoiwpfa" path="res://scuffed transition2 no onionskin.png" id="2_d0owr"]
 [ext_resource type="AudioStream" uid="uid://das6oobng6oby" path="res://Main Game/Microgames/GameHotDog/Hot Dog Microgame.wav" id="3_ckhsl"]
 
-[node name="BossQuiz" type="Node" node_paths=PackedStringArray("transition_rect", "game_music")]
+[node name="BossQuiz" type="Node" node_paths=PackedStringArray("transition_rect", "game_music", "game_timer", "p1_time_label", "p2_time_label", "p1_question_label", "p2_question_label", "p1_top_label", "p1_left_label", "p1_right_label", "p1_bottom_label", "p2_top_label", "p2_left_label", "p2_right_label", "p2_bottom_label")]
 script = ExtResource("1_ej77l")
 transition_rect = NodePath("CanvasLayer/Control/TransitionRect")
 game_music = NodePath("GameMusic")
+game_timer = NodePath("GameTimer")
+p1_time_label = NodePath("CanvasLayer/Control/HBoxContainer/P1Side/P1TimeLeft")
+p2_time_label = NodePath("CanvasLayer/Control/HBoxContainer/P2Side/P2TimeLeft")
+p1_question_label = NodePath("CanvasLayer/Control/HBoxContainer/P1Side/P1Question")
+p2_question_label = NodePath("CanvasLayer/Control/HBoxContainer/P2Side/P2Question")
+p1_top_label = NodePath("CanvasLayer/Control/HBoxContainer/P1Side/P1Top")
+p1_left_label = NodePath("CanvasLayer/Control/HBoxContainer/P1Side/P1Left")
+p1_right_label = NodePath("CanvasLayer/Control/HBoxContainer/P1Side/P1Right")
+p1_bottom_label = NodePath("CanvasLayer/Control/HBoxContainer/P1Side/P1Bottom")
+p2_top_label = NodePath("CanvasLayer/Control/HBoxContainer/P2Side/P2Top")
+p2_left_label = NodePath("CanvasLayer/Control/HBoxContainer/P2Side/P2Left")
+p2_right_label = NodePath("CanvasLayer/Control/HBoxContainer/P2Side/P2Right")
+p2_bottom_label = NodePath("CanvasLayer/Control/HBoxContainer/P2Side/P2Bottom")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -18,6 +31,218 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P1Side" type="Control" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="P1TimeLeft" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 100.0
+offset_right = 25.0
+offset_bottom = 150.0
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "16"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P1Question" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 200.0
+offset_right = 250.0
+offset_bottom = 300.0
+grow_horizontal = 2
+size_flags_vertical = 0
+bbcode_enabled = true
+text = "[center]Question[/center]"
+
+[node name="P1Top" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 500.0
+offset_right = 125.0
+offset_bottom = 600.0
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "Answer Top"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P1Left" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 100.0
+offset_top = 150.0
+offset_right = 350.0
+offset_bottom = 250.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "Answer Left"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P1Right" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = 150.0
+offset_right = -100.0
+offset_bottom = 250.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "Answer Right"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P1Bottom" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -200.0
+offset_right = 125.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 0
+text = "Answer Bottom"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P2Side" type="Control" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="P2TimeLeft" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 100.0
+offset_right = 25.0
+offset_bottom = 150.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "16"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P2Question" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 200.0
+offset_right = 250.0
+offset_bottom = 300.0
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "Question"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P2Top" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 500.0
+offset_right = 125.0
+offset_bottom = 600.0
+grow_horizontal = 2
+size_flags_vertical = 0
+text = "Answer Top"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P2Left" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 100.0
+offset_top = 150.0
+offset_right = 350.0
+offset_bottom = 250.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "Answer Left"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P2Right" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = 150.0
+offset_right = -100.0
+offset_bottom = 250.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+text = "Answer Right"
+horizontal_alignment = 1
+text_overrun_behavior = 1
+
+[node name="P2Bottom" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -200.0
+offset_right = 125.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 0
+text = "Answer Bottom"
+horizontal_alignment = 1
+text_overrun_behavior = 1
 
 [node name="TransitionRect" type="TextureRect" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -38,3 +263,8 @@ texture = ExtResource("2_d0owr")
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("3_ckhsl")
+
+[node name="GameTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

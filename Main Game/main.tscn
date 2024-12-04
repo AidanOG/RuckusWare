@@ -1,10 +1,13 @@
-[gd_scene load_steps=50 format=3 uid="uid://nvxl21de0npd"]
+[gd_scene load_steps=53 format=3 uid="uid://nvxl21de0npd"]
 
 [ext_resource type="Script" path="res://Main Game/main.gd" id="1_iurfd"]
+[ext_resource type="PackedScene" uid="uid://bvyrijkk18iiq" path="res://Main Game/Microgames/GameHotDog/game_grab_stick.tscn" id="2_010jw"]
+[ext_resource type="PackedScene" uid="uid://baxynsm3r0qm4" path="res://Main Game/Microgames/GameNotABug/game_not_a_bug.tscn" id="3_bh2rd"]
 [ext_resource type="Texture2D" uid="uid://dy1hf55ug6x3e" path="res://Main Game/Animations/Intermission/Rough_Intermission_0000.png" id="3_f3lr2"]
 [ext_resource type="AudioStream" uid="uid://bea4o5tygudbg" path="res://Main Game/Win.wav" id="3_lh262"]
 [ext_resource type="Texture2D" uid="uid://bdxlyqmrwnre8" path="res://Main Game/Animations/Background.png" id="3_mkqg3"]
 [ext_resource type="Texture2D" uid="uid://bjmbey4tots16" path="res://Main Game/Animations/Intermission/Rough_Intermission_0001.png" id="4_lgr16"]
+[ext_resource type="PackedScene" uid="uid://bbj5ok0hqnu0l" path="res://Main Game/Microgames (Boss)/BossQuiz/boss_quiz.tscn" id="4_o0c56"]
 [ext_resource type="AudioStream" uid="uid://povmescxriqe" path="res://Main Game/Neutral.wav" id="4_y8qse"]
 [ext_resource type="AudioStream" uid="uid://cunyktxspjqvs" path="res://Main Game/Lose.wav" id="5_t5hjq"]
 [ext_resource type="Texture2D" uid="uid://3j42ky2sie8j" path="res://Main Game/Animations/Intermission/Rough_Intermission_0002.png" id="5_uhyiv"]
@@ -334,11 +337,12 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("countdown_timer", "intermission_music_timer", "speed_up_music_timer", "countdown_label", "p1_lives_label", "p2_lives_label", "round_count_label", "win_music", "neutral_music", "lose_music", "speed_up_music", "left_racoon", "right_racoon", "background_animation")]
+[node name="Main" type="Node" node_paths=PackedStringArray("countdown_timer", "intermission_music_timer", "speed_up_music_timer", "intermission_label", "countdown_label", "p1_lives_label", "p2_lives_label", "round_count_label", "win_music", "neutral_music", "lose_music", "speed_up_music", "left_racoon", "right_racoon", "background_animation", "game_scene_container")]
 script = ExtResource("1_iurfd")
 countdown_timer = NodePath("CountdownTimer")
 intermission_music_timer = NodePath("IntermissionMusicTimer")
 speed_up_music_timer = NodePath("SpeedUpMusicTimer")
+intermission_label = NodePath("CanvasLayer/Control/Label")
 countdown_label = NodePath("CanvasLayer/Control/CountdownLabel")
 p1_lives_label = NodePath("CanvasLayer/Control/P1Lives")
 p2_lives_label = NodePath("CanvasLayer/Control/P2Lives")
@@ -350,6 +354,12 @@ speed_up_music = NodePath("SpeedUp")
 left_racoon = NodePath("CanvasLayer/LeftRacoon")
 right_racoon = NodePath("CanvasLayer/RightRacoon")
 background_animation = NodePath("CanvasLayer/Background")
+game_grab_stick = ExtResource("2_010jw")
+game_not_a_bug = ExtResource("3_bh2rd")
+boss_quiz = ExtResource("4_o0c56")
+game_scene_container = NodePath("MicrogameContainer")
+
+[node name="MicrogameContainer" type="Node" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

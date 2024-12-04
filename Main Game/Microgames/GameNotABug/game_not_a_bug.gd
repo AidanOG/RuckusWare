@@ -1,4 +1,5 @@
-extends Node
+class_name GameNotABug
+extends BaseMicrogame
 @export var transition_rect: TextureRect
 
 @export var game_timer: Timer
@@ -146,7 +147,8 @@ func _on_game_timer_timeout():
 	get_tree().paused = false
 	game_music.stop()
 	
-	get_tree().change_scene_to_packed(SceneManager.main_scene)
+	all_done.emit()
+	#get_tree().change_scene_to_packed(SceneManager.main_scene)
 
 
 func _on_swatter_1_splat_1():

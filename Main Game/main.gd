@@ -4,6 +4,7 @@ extends Node
 @export var countdown_timer: Timer
 @export var intermission_music_timer: Timer
 @export var speed_up_music_timer: Timer
+@export var intermission_label: Label
 @export var countdown_label: Label
 @export var p1_lives_label: Label
 @export var p2_lives_label: Label
@@ -16,12 +17,28 @@ extends Node
 @export var right_racoon: AnimatedSprite2D
 @export var background_animation: AnimatedSprite2D
 
+@export var game_grab_stick: PackedScene
+@export var game_not_a_bug: PackedScene
+
+@export var boss_quiz: PackedScene
+
+@export var game_scene_container: Node
+var current_microgame: BaseMicrogame
+
 var next_game = 0
 var speed_up_addend = 0.06
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	intermission()
+	current_microgame = null
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	countdown_label.text = str(floor(countdown_timer.get_time_left()) + 1)
+	
+func intermission():
 	if GameManager.p1_just_failed == true:
 		GameManager.p1_lives -= 1
 	if GameManager.p2_just_failed == true:
@@ -94,12 +111,6 @@ func _ready():
 	countdown_timer.start()
 	
 	background_animation.play()
-	
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	countdown_label.text = str(floor(countdown_timer.get_time_left()) + 1)
 
 
 func _on_countdown_timer_timeout():
@@ -108,11 +119,44 @@ func _on_countdown_timer_timeout():
 	GameManager.p1_just_failed = false
 	GameManager.p2_just_failed = false
 	if GameManager.p1_lives > 0 && GameManager.p2_lives > 0:
-		next_game = randi_range(0, 1)
+		#next_game = randi_range(0, 1)
+		next_game = 1000
 		if(next_game == 0):
-			get_tree().change_scene_to_packed(SceneManager.grab_stick)
+			#get_tree().change_scene_to_packed(SceneManager.grab_stick)
+			current_microgame = game_grab_stick.instantiate() as BaseMicrogame
+			current_microgame.all_done.connect(_on_microgame_finished)
+			game_scene_container.add_child(current_microgame)
 		elif(next_game == 1):
-			get_tree().change_scene_to_packed(SceneManager.not_a_bug)
+			#get_tree().change_scene_to_packed(SceneManager.not_a_bug)
+			current_microgame = game_not_a_bug.instantiate() as BaseMicrogame
+			current_microgame.all_done.connect(_on_microgame_finished)
+			game_scene_container.add_child(current_microgame)
+			
+		elif(next_game == 1000):
+			current_microgame = boss_quiz.instantiate() as BaseMicrogame
+			current_microgame.all_done.connect(_on_microgame_finished)
+			game_scene_container.add_child(current_microgame)
+		right_racoon.hide()
+		left_racoon.hide()
+		background_animation.hide()
+		intermission_label.hide()
+		countdown_label.hide()
+		p1_lives_label.hide()
+		p2_lives_label.hide()
+		round_count_label.hide()
+			
+func _on_microgame_finished():
+	current_microgame.queue_free()
+	current_microgame = null
+	right_racoon.show()
+	left_racoon.show()
+	background_animation.show()
+	intermission_label.show()
+	countdown_label.show()
+	p1_lives_label.show()
+	p2_lives_label.show()
+	round_count_label.show()
+	intermission()
 
 
 func _on_intermission_music_timer_timeout():
