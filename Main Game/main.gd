@@ -26,7 +26,7 @@ extends Node
 var current_microgame: BaseMicrogame
 
 var next_game = 0
-var speed_up_addend = 0.06
+var speed_up_factor = 1.0594631
 
 
 # Called when the node enters the scene tree for the first time.
@@ -90,8 +90,8 @@ func intermission():
 		
 		if GameManager.speed_up_now == true:
 																					#used to be 1.375
-			countdown_timer.set_wait_time((2.00) / (GameManager.game_speed) + ((4.00 + 1.5) / (GameManager.game_speed + speed_up_addend))) # each part of song is 2sec. 1.375 sec of the intermission is played here, the other 0.625 sec is played in the game scene
-			intermission_music_timer.set_wait_time((2.00)/ (GameManager.game_speed) + (4.00 / (GameManager.game_speed + speed_up_addend)))
+			countdown_timer.set_wait_time((2.00) / (GameManager.game_speed) + ((4.00 + 1.5) / (GameManager.game_speed * speed_up_factor))) # each part of song is 2sec. 1.375 sec of the intermission is played here, the other 0.625 sec is played in the game scene
+			intermission_music_timer.set_wait_time((2.00)/ (GameManager.game_speed) + (4.00 / (GameManager.game_speed * speed_up_factor)))
 			speed_up_music_timer.set_wait_time((2.00)/ GameManager.game_speed)
 			speed_up_music_timer.start()
 			GameManager.speed_up_now = false
@@ -119,8 +119,9 @@ func _on_countdown_timer_timeout():
 	GameManager.p1_just_failed = false
 	GameManager.p2_just_failed = false
 	if GameManager.p1_lives > 0 && GameManager.p2_lives > 0:
-		#next_game = randi_range(0, 1)
+		next_game = randi_range(0, 1)
 		next_game = 1000
+		
 		if(next_game == 0):
 			#get_tree().change_scene_to_packed(SceneManager.grab_stick)
 			current_microgame = game_grab_stick.instantiate() as BaseMicrogame
@@ -166,7 +167,7 @@ func _on_intermission_music_timer_timeout():
 
 
 func _on_speed_up_music_timer_timeout():
-	GameManager.game_speed += speed_up_addend
+	GameManager.game_speed *= speed_up_factor
 	background_animation.set_speed_scale(GameManager.game_speed)
 	left_racoon.set_speed_scale(GameManager.game_speed)
 	right_racoon.set_speed_scale(GameManager.game_speed)

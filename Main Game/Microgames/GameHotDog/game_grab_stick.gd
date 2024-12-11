@@ -68,6 +68,11 @@ func _ready():
 	game_music.set_pitch_scale(GameManager.game_speed)
 	game_music.play()
 	
+	sfx_whip1.set_pitch_scale(GameManager.game_speed)
+	sfx_whip2.set_pitch_scale(GameManager.game_speed)
+	sfx_miss1.set_pitch_scale(GameManager.game_speed)
+	sfx_miss2.set_pitch_scale(GameManager.game_speed)
+	
 	catchable_1 = false
 	catchable_2 = false
 	

@@ -73,7 +73,7 @@ size_flags_vertical = 0
 bbcode_enabled = true
 text = "[center]Question[/center]"
 
-[node name="P1Top" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+[node name="P1Top" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -84,11 +84,11 @@ offset_right = 125.0
 offset_bottom = 600.0
 grow_horizontal = 2
 size_flags_vertical = 0
-text = "Answer Top"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Answer Top[/center]"
+autowrap_mode = 2
 
-[node name="P1Left" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+[node name="P1Left" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -99,12 +99,11 @@ offset_right = 350.0
 offset_bottom = 250.0
 grow_vertical = 2
 size_flags_horizontal = 0
-size_flags_vertical = 1
-text = "Answer Left"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Answer Left[/center]"
+autowrap_mode = 2
 
-[node name="P1Right" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+[node name="P1Right" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -118,12 +117,11 @@ offset_bottom = 250.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 0
-size_flags_vertical = 1
-text = "Answer Right"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Answer Right[/center]"
+autowrap_mode = 2
 
-[node name="P1Bottom" type="Label" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
+[node name="P1Bottom" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P1Side"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -137,9 +135,9 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 0
-text = "Answer Bottom"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Answer Bottom[/center]"
+autowrap_mode = 2
 
 [node name="P2Side" type="Control" parent="CanvasLayer/Control/HBoxContainer"]
 layout_mode = 2
@@ -161,7 +159,7 @@ text = "16"
 horizontal_alignment = 1
 text_overrun_behavior = 1
 
-[node name="P2Question" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+[node name="P2Question" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -172,11 +170,10 @@ offset_right = 250.0
 offset_bottom = 300.0
 grow_horizontal = 2
 size_flags_vertical = 0
-text = "Question"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Question[/center]"
 
-[node name="P2Top" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+[node name="P2Top" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -187,11 +184,11 @@ offset_right = 125.0
 offset_bottom = 600.0
 grow_horizontal = 2
 size_flags_vertical = 0
-text = "Answer Top"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Answer Top[/center]"
+autowrap_mode = 2
 
-[node name="P2Left" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+[node name="P2Left" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -202,12 +199,11 @@ offset_right = 350.0
 offset_bottom = 250.0
 grow_vertical = 2
 size_flags_horizontal = 0
-size_flags_vertical = 1
-text = "Answer Left"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Answer Left[/center]"
+autowrap_mode = 2
 
-[node name="P2Right" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+[node name="P2Right" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -221,12 +217,11 @@ offset_bottom = 250.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 0
-size_flags_vertical = 1
-text = "Answer Right"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Answer Right[/center]"
+autowrap_mode = 2
 
-[node name="P2Bottom" type="Label" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
+[node name="P2Bottom" type="RichTextLabel" parent="CanvasLayer/Control/HBoxContainer/P2Side"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -240,9 +235,9 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 0
-text = "Answer Bottom"
-horizontal_alignment = 1
-text_overrun_behavior = 1
+bbcode_enabled = true
+text = "[center]Answer Bottom[/center]"
+autowrap_mode = 2
 
 [node name="TransitionRect" type="TextureRect" parent="CanvasLayer/Control"]
 layout_mode = 1
