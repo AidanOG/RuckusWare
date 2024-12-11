@@ -18,6 +18,9 @@ extends BaseMicrogame
 @export var p2_right_label: RichTextLabel
 @export var p2_bottom_label: RichTextLabel
 
+@export var sfx_wrong1: AudioStreamPlayer
+@export var sfx_wrong2: AudioStreamPlayer
+
 var questions_answered_1 = 0
 var questions_answered_2 = 0
 var lives_1 = 3
@@ -41,6 +44,11 @@ var question_list_easy = [
 	]
 var current_correct_answer_p1 = 0
 var current_correct_answer_p2 = 0
+
+var current_question_num_p1
+var current_question_num_p2
+var asked = []
+var question_list
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -70,7 +78,6 @@ func _ready():
 	game_timer.set_wait_time(16/GameManager.game_speed)
 	game_timer.start()
 	
-	var question_list
 	if GameManager.game_level == 1:
 		question_list = question_list_easy
 	elif GameManager.game_level == 2:
@@ -78,24 +85,10 @@ func _ready():
 	elif GameManager.game_level == 3:
 		pass
 	
-	var asked = []
+	asked = []
 	
-	var current_question_num_p1 = randi_range(0, question_list.size() - 1)
-	while current_question_num_p1 in asked:
-		current_question_num_p1 = randi_range(0, question_list.size() - 1)
-	asked.append(current_question_num_p1)
-	if question_list == question_list_easy && (current_question_num_p1 == 5 || current_question_num_p1 == 6):
-		asked.append(5)
-		asked.append(6)
-		
-	
-	var current_question_num_p2 = randi_range(0, question_list.size() - 1)
-	while current_question_num_p2 in asked:
-		current_question_num_p2 = randi_range(0, question_list.size() - 1)
-	asked.append(current_question_num_p2)
-	if question_list == question_list_easy && (current_question_num_p2 == 5 || current_question_num_p2 == 6):
-		asked.append(5)
-		asked.append(6)
+	select_question_number_p1()
+	select_question_number_p2()
 	
 	print(asked)
 	
@@ -103,7 +96,6 @@ func _ready():
 	print(question_list[current_question_num_p2])
 	generate_question_p1(question_list[current_question_num_p1])
 	generate_question_p2(question_list[current_question_num_p2])
-	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -112,6 +104,24 @@ func _process(delta):
 	p1_time_label.text = str("%.2f" % p1_time)
 	p2_time = game_timer.get_time_left()
 	p2_time_label.text = str("%.2f" % p2_time)
+
+func select_question_number_p1():
+	current_question_num_p1 = randi_range(0, question_list.size() - 1)
+	while current_question_num_p1 in asked:
+		current_question_num_p1 = randi_range(0, question_list.size() - 1)
+	asked.append(current_question_num_p1)
+	if question_list == question_list_easy && (current_question_num_p1 == 5 || current_question_num_p1 == 6):
+		asked.append(5)
+		asked.append(6)
+
+func select_question_number_p2():
+	current_question_num_p2 = randi_range(0, question_list.size() - 1)
+	while current_question_num_p2 in asked:
+		current_question_num_p2 = randi_range(0, question_list.size() - 1)
+	asked.append(current_question_num_p2)
+	if question_list == question_list_easy && (current_question_num_p2 == 5 || current_question_num_p2 == 6):
+		asked.append(5)
+		asked.append(6)
 
 func generate_question_p1(question):
 	#Pop the question and display
@@ -238,6 +248,30 @@ func _on_game_timer_timeout():
 	
 	all_done.emit()
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 func craft_date_question():
 	var date = Time.get_date_dict_from_system(false)
 	var year = int(date.year)

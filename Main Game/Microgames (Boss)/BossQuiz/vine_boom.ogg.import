@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dh4looa2jpssd"
+path="res://.godot/imported/vine_boom.ogg-1ccf9e34863f431249a9901391b584f7.oggvorbisstr"
+
+[deps]
+
+source_file="res://Main Game/Microgames (Boss)/BossQuiz/vine_boom.ogg"
+dest_files=["res://.godot/imported/vine_boom.ogg-1ccf9e34863f431249a9901391b584f7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
