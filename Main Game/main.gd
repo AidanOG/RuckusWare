@@ -26,7 +26,7 @@ extends Node
 var current_microgame: BaseMicrogame
 
 var next_game = 0
-var speed_up_factor = 1.0594631
+var speed_up_factor = 2 ** (1/12)
 
 
 # Called when the node enters the scene tree for the first time.

@@ -32,7 +32,7 @@ var p2_time
 
 #var current_question_num_p1
 var question_list_easy = [
-	["[center]Who is Donkey Kong's best friend?[/center]", "Diddy Kong", "Dixie Kong", "", "", "Candy Kong", "Bluster Kong", "Lanky Kong", "Funky Kong", "Chunky Kong", "Lil' Kong", "Stinky Kong", "Mario", "Bowser"],
+	["[center]Who is Donkey Kong's best friend?[/center]", "Diddy Kong", "Dixie Kong", "", "", "Candy Kong", "Bluster Kong", "Lanky Kong", "Funky Kong", "Chunky Kong", "Lil' Kong", "Stinky Kong", "Mario", "Bowser", "King K. Rool"],
 	["[center]What year did the original [i]Super Mario Bros.[/i] release?[/center]", "1985", "", "", "", "1999", "1989", "1995", "1990", "1991", "1982", "1984", "19-Aught-7"],
 	["[center]What does \"COGS\" stand for?[/center]", "Creation of Games Society", "", "", "", "Community of Game Scholars", "Conservation of Games Syndicate", "The acronym is meaningless.", "Cost of Goods Sold", "It's the last name of the club's founder.", "Community of Gamedev Specialists", "Console and Online Gaming Society", "Creative Optimization of Games Squad", "Computer Operations and Gaming Simulations", "Cooperative Online Game Studio", "Collaborative Open Game Studio"],
 	["[center]What is the name of COGS' special event held once every semester?[/center]", "Scarlet Game Jam", "", "", "", "Scarlet Game Night", "RU Gaming?", "Fireside Open", "Scarlet Classic", "COGS Minecraft Night"],
