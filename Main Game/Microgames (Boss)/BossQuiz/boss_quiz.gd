@@ -21,10 +21,12 @@ extends BaseMicrogame
 @export var sfx_wrong1: AudioStreamPlayer
 @export var sfx_wrong2: AudioStreamPlayer
 
-var questions_answered_1 = 0
-var questions_answered_2 = 0
-var lives_1 = 3
-var lives_2 = 3
+var questions_to_answer = 3
+
+var questions_answered_p1 = 0
+var questions_answered_p2 = 0
+var lives_p1 = 3
+var lives_p2 = 3
 var done_1 = false
 var done_2 = false
 var p1_time
@@ -32,16 +34,65 @@ var p2_time
 
 #var current_question_num_p1
 var question_list_easy = [
-	["[center]Who is Donkey Kong's best friend?[/center]", "Diddy Kong", "Dixie Kong", "", "", "Candy Kong", "Bluster Kong", "Lanky Kong", "Funky Kong", "Chunky Kong", "Lil' Kong", "Stinky Kong", "Mario", "Bowser", "King K. Rool"],
-	["[center]What year did the original [i]Super Mario Bros.[/i] release?[/center]", "1985", "", "", "", "1999", "1989", "1995", "1990", "1991", "1982", "1984", "19-Aught-7"],
-	["[center]What does \"COGS\" stand for?[/center]", "Creation of Games Society", "", "", "", "Community of Game Scholars", "Conservation of Games Syndicate", "The acronym is meaningless.", "Cost of Goods Sold", "It's the last name of the club's founder.", "Community of Gamedev Specialists", "Console and Online Gaming Society", "Creative Optimization of Games Squad", "Computer Operations and Gaming Simulations", "Cooperative Online Game Studio", "Collaborative Open Game Studio"],
-	["[center]What is the name of COGS' special event held once every semester?[/center]", "Scarlet Game Jam", "", "", "", "Scarlet Game Night", "RU Gaming?", "Fireside Open", "Scarlet Classic", "COGS Minecraft Night"],
-	["[center]What is the highest grossing arcade game of all time?[/center]", "[i]Pac-Man[/i]", "", "", "", "[i]Space Invaders[/i]", "[i]Street Fighter II[/i]", "[i]NBA Jam[/i]", "[i]Asteroids[/i]", "[i]Mortal Kombat II[/i]", "[i]Donkey Kong[/i]", "[i]Galaga[/i]", "[i]Snake[/i]", "[i]Pong[/i]", "[i]Dig Dug[/i]", "[i]Frogger[/i]", "[i]Centipede[/i]"],
-	["[center]What does the \"DS\" in \"Nintendo DS\" stand for?[/center]", "Developers' System", "", "", "", "Digital System", "Digital Screen", "Double Screen", "Display Sync", "Data Sharing", "Dynamic System"],
-	["[center]What does the \"DS\" in \"Nintendo DS\" stand for?[/center]", "Dual Screen", "", "", "", "Digital System", "Digital Screen", "Double Screen", "Display Sync", "Data Sharing", "Dynamic System"],
-	["[center]What is the name of Kratos' son in [i]God of War Ragnarök[/i]?[/center]", "Atreus", "", "", "", "Babitos", "Kratos never cared to name him, and just calls him \"boy\".", "Agamemnon", "Menelaus", "Pallas", "Potestas", "Baldur", "Belial", "Asmodeus", "Atriox", "Artemis", "Apollo"],
-	["[center]What is today's date?[/center]"]
-	]
+	["Who is Donkey Kong's best friend?", "Diddy Kong", "Dixie Kong", "", "", "Candy Kong", "Bluster Kong", "Lanky Kong", "Funky Kong", "Chunky Kong", "Lil' Kong", "Stinky Kong", "Mario", "Bowser", "King K. Rool"],
+	["What year did the original [i]Super Mario Bros.[/i] release?", "1985", "", "", "", "1999", "1989", "1995", "1990", "1991", "1982", "1984", "19-Aught-7"],
+	["What does \"COGS\" stand for?", "Creation of Games Society", "", "", "", "Community of Game Scholars", "Conservation of Games Syndicate", "The acronym is meaningless.", "Cost of Goods Sold", "It's the last name of the club's founder.", "Community of Gamedev Specialists", "Console and Online Gaming Society", "Creative Optimization of Games Squad", "Computer Operations and Gaming Simulations", "Cooperative Online Game Studio", "Collaborative Open Game Studio"],
+	["What is the name of COGS' special event held once every semester?", "Scarlet Game Jam", "", "", "", "Scarlet Game Night", "RU Gaming?", "Fireside Open", "Scarlet Classic", "COGS Minecraft Night"],
+	["What is the highest grossing arcade game of all time?", "[i]Pac-Man[/i]", "", "", "", "[i]Space Invaders[/i]", "[i]Street Fighter II[/i]", "[i]NBA Jam[/i]", "[i]Asteroids[/i]", "[i]Mortal Kombat II[/i]", "[i]Donkey Kong[/i]", "[i]Galaga[/i]", "[i]Snake[/i]", "[i]Pong[/i]", "[i]Dig Dug[/i]", "[i]Frogger[/i]", "[i]Centipede[/i]"],
+	["What does the \"DS\" in \"Nintendo DS\" stand for?", "Developers' System", "", "", "", "Digital System", "Digital Screen", "Double Screen", "Display Sync", "Data Sharing", "Dynamic System"],
+	["What does the \"DS\" in \"Nintendo DS\" stand for?", "Dual Screen", "", "", "", "Digital System", "Digital Screen", "Double Screen", "Display Sync", "Data Sharing", "Dynamic System"],
+	["What is the name of Kratos' son in [i]God of War Ragnarök[/i]?", "Atreus", "", "", "", "Babitos", "Kratos never cared to name him, and just calls him \"boy\".", "Agamemnon", "Menelaus", "Pallas", "Potestas", "Baldur", "Belial", "Asmodeus", "Atriox", "Artemis", "Apollo"],
+	["What is today's date?"],
+	["Who is the first Gym Leader fought in the original [i]Pokémon Red[/i] and [i]Pokémon Blue[/i]?", "Brock", "Misty", "", "", "Blaine", "Lt. Surge", "Erika", "Koga", "Giovanni", "Sabrina", "Red", "Blue", "Dawn", "Falkner", "Roxanne", "Norman", "Milo", "Katy", "Nemona", "Tracy", "Bugsy"],
+	["What year did the Nintendo Wii release?", "2006", "", "", "", "2007", "2005", "2008", "2004", "2010", "2003", "2002", "2000", "2001", "2009", "2008"],
+	["What is Master Chief's given first name?", "John", "", "", "", "Abraham", "David", "Isaiah", "Zion", "Justin", "Zachary", "Elliot", "Joel", "Peter", "Jeremy", "Salem", "Kane", "Jacob", "Alan", "Aiden", "Kyle", "Wayne", "James", "Bruce"],
+	["What [i]Minecraft[/i] block found deep underground is unbreakable in Survival mode?", "Bedrock", "", "", "", "Deepslate", "Granite", "Andesite", "Diorite", "Blackstone", "Netherite", "Core Block", "Obsidian", "Barrier", "Void", "End Stone"],
+	["Which character from [i]Doki Doki Literature Club![/i] is revealed to be both sentient and evil?", "Monika", "", "", "", "Sayori", "Yuri", "Natsuki", "Dan Salvato"],
+	["Mega Man has an older brother named _____.", "Proto Man", "Roll", "", "", "Dr. Light", "Dr. Wily", "Zero", "Mega Man X", "Elec Man", "Rockman", "Bass", "Sigma", "Guts Man", "Cut Man", "Rush"],
+	["Mega Man has a younger sister named _____.", "Roll", "", "", "", "Dr. Light", "Dr. Wily", "Mega Woman", "Mega Girl", "Bass", "Sigma", "Rush", "Elec Woman", "Elec Girl", "Roxanne", "Tron Bonne", "Blues"],
+	["What is the maximum number of Power Stars a player can collect in the original [i]Super Mario 64[/i]?", "120", "", "", "", "100", "150", "50", "200", "300", "180", "250", "115", "90", "105", "880", "999"],
+	["Who is the final boss in [i]Terraria[/i]?", "Moon Lord", "", "", "", "Cthulhu", "Supreme Calamitas", "Devourer of Gods", "Wall of Flesh", "Empress of Light", "Slime God", "Lunatic Cultist", "Exo Mechs", "Ocram", "Hive Mind of Cthulhu", "Ancient Vision", "Phantasm Dragon", "True Eye of Cthulhu", "Terrarian"],
+	["What game originated the old meme phrase \"The cake is a lie\"?", "[i]Portal[/i]", "", "", "", "[i]Half-Life[/i]", "[i]Team Fortress 2[/i]", "[i]Minecraft[/i]", "[i]Terraria[/i]", "[i]Goat Simulator[/i]", "[i]Life is Strange[/i]", "[i]YIIK: A Post-Modern RPG[/i]"]
+]
+
+var question_list_medium = [
+	["What year was COGS founded?", "2014", "", "", "", "2010", "2012", "2017", "2019", "2021", "2009", "1999", "2000", "2009", "2008", "2011"],
+	["What was [i]Minecraft[/i]'s original name?", "[i]Cave Game[/i]", "[i]Minecraft: Order of the Stone[/i]", "", "", "[i]Blockscape[/i]", "[i]Mine & Craft[/i]", "[i]Craftverse[/i]", "[i]Voxel World[/i]", "[i]Pixelcraft[/i]", "[i]Blocky Haven[/i]", "[i]My World[/i]", "[i]Pixel Forge[/i]", "[i]Worldbuilder[/i]", "[i]Cubic Horizons[/i]", "[i]Stone Realm[/i]", "[i]Treasure Planet[/i]", "[i]Hunt, Gather, Build[/i]", "[i]Dragonslayer[/i]"],
+	["What is the name of Klonoa's home town?", "Breezegale", "", "", "", "Littleroot", "Phantomile", "Lunatea", "Volk City", "Twinleaf", "Zinkenstill"],
+	["Which is a real Pokémon?", "Brambleghast", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Centiskorch", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Wishiwashi", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Hydrapple", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Volcanion", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Druddigon", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Pyukumuku", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Frosmoth", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Shroodle", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Blacephalon", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Stakataka", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Poipole", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Nihilego", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Barbaracle", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Raging Bolt", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Scream Tail", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Iron Hands", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["Which is a real Pokémon?", "Iron Crown", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
+	["What's the name of COGS' mascot?", "COGS-chan", "", "", "", "Jam-tan", "Pascal", "Cogster", "Coglet", "Coggers", "Godot Gal", "Sarah", "Scarlet", "Julie", "Gamer Girl", "Melissa", "Rachel", "Roxie", "Alex", "Alana", "Jam Jar", "Bath Bomb Baby"],
+	["Who composed [i]One Winged Angel[/i] as it was first heard in [i]Final Fantasy VII[/i]?", "Nobuo Uematsu", "", "", "", "Koji Kondo", "Danny Elfman", "John Williams", "Yoko Shimamura", "Akira Yamaoka", "Koichi Sugiyama", "Kazumi Totaka", "Masato Nakamura", "Junichi Masuda", "Masahiro Sakurai", "Michiru Yamane", "Yasunori Mitsuda", "Mahito Yokota", "Jake Kaufman", "Garett Coker", "Hirokazu \"Hit\" Tanaka", "Toby Fox", "Grant Kirkhope", "Jun'ya \"ZUN\" Ōta", "Daisuke Ishiwatari", "Naoki \"NAOKI\" Hashimoto", "Christopher Larkin", "Motoi Sakuraba", "Jun Senoue", "Tee \"Tee Lopes\" Lopes", "David Wise", "Hitoshi Sakimoto", "Shigeru Miyamoto", "Noah Wu"],
+	["How much does a [i]Fornite[/i] Battle Pass cost?", "$9.99", "", "", "", "$4.99", "$14.99", "$19.99", "$11.99", "100 V-Bucks", "500 V-Bucks", "1,000 V-Bucks", "200 V-Bucks"],
+	["Which one of these [i]Undertale[/i] characters is named after a real person?", "Temmie", "", "", "", "Undyne", "Alphys", "Asriel", "Gerson", "Nabstablook", "Chara"],
+	["The protagonist from [i]One Shot[/i] is named after which famous inventor?", "Nikola Tesla", "", "", "", "Albert Einstein", "J. Robert Oppenheimer", "Alexander Graham Bell", "Thomas Edison", "Madam C.J. Walker", "Orville Wright", "Wilbur Wright", "Ada Lovelace", "Hedy Lamarr", "Kendrick Lamar"],
+	["What is the name of Wario's brother?", "Wario doesn't have a brother.", "Waluigi", "", "", "Mario", "Luigi", "Jimmy T.", "18-Volt", "Wario-Man"],
+	["After global launch, [i]Zenless Zone Zero[/i]'s first Exclusive Channel featureed which S-rank character?", "Ellen Joe", "", "", "", "Zhu Yuan", "Hoshimi Miyabi", "Belle", "Wise", "Anby", "Nicole", "Billy Kid", "Nekomiya Mana", "Ben Bigger", "Jane Doe", "Seth", "Qingyi", "Ellen Degeneres", "Klee", "Venti", "Zhongli", "Ganyu", "Hu Tao"],
+	["What game originated the old meme phrase \"All your base are belong to us\"?", "[i]Zero Wing[/i]", "", "", "", "[i]Contra[/i]", "[i]Mega Man[/i]", "[i]Half-Life[/i]", "[i]Portal[/i]", "[i]Metal Gear[/i]", "[i]Star Fox[/i]", "[i]Metroid[/i]", "[i]Hogan's Alley[/i]", "[i]Pilotwings[/i]", "[i]Double Dragon[/i]"],
+	["Nintendo was originally founded to produce what?", "Playing cards", "", "", "", "Polaroid cameras", "Plush toys", "Electrical cables", "Circuit boards", "Scented candles", "Children's books"],
+	["Who is the titular \"guilty Gear\" from the [i]Guilty Gear[/i] franchise?", "Sol Badguy", "", "", "", "Ky Kiske", "Leo Whitefang", "Ragna the Bloodedge", "Ramlethal Valentine", "Jack-O' Valentine", "Baiken", "Bedman", "Dizzy", "Ariels", "Asuka R. Kreutz", "Kliff Undersn", "Testament", "Justice", "Saul Goodman"],
+	["During a promotoional Q&A video for the 30th anniversary of [i]Super Mario Bros.[/i], series creator Shigeru Miyamoto reveals that Bowser Jr.'s mother is who?", "Shigeru Miyamoto himself", "Princess Peach", "", "", "Princess Daisy", "Princess Rosalina", "Pauline", "Mario", "Luigi", "Kamek", "An unknown deceased character.", "Not even Shigeru Miyamoto knows.", "Bowser Jr. has no mother, and Bowser is capable of asexual reproduction."],
+	["As of 2024, the world record speedrun for the original [i]Super Mario Bros.[/i] takes _____.", "around 5 minutes", "", "", "", "around 1 minute", "around 2 minutes", "around 10 minutes", "around 15 minutes", "around 20 minutes", "around 30 minutes", "around 1 hour", "around 30 seconds"],
+	["The Lowain Bros from [i]Granblue Fantasy[/i] are also collectively known as _____.", "The Brofam", "", "", "", "Dandylions Blooming in the Tosh", "The Bromance", "The Katalina Fan Club", "The Yggdrasil Fan Club", "The Freesia von Bismarck Fan Club", "The Swinger Trio", "The Human Pyramid", "Magnificent Tools of Destruction"],
+	["In [i]Pokémon Diamond[/i], [i]Pokémon Pearl[/i], and [i]Pokémon Platinum[/i], the device obtained in Jubilife City that occupies the DS' touch screen is called the _____.", "Pokétch", "", "", "", "Pokétech", "Pokédex", "PokéNav", "Pokégear", "C-Gear", "Cell Phone", "Xtransceiver"]
+]
+
 var current_correct_answer_p1 = 0
 var current_correct_answer_p2 = 0
 
@@ -50,15 +101,19 @@ var current_question_num_p2
 var asked = []
 var question_list
 
+var game_started = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
 	GameManager.p1_just_failed = true
 	GameManager.p2_just_failed = true
 	
 	if GameManager.game_level == 1:
 		craft_date_question()
+		question_list = question_list_easy
 	elif GameManager.game_level == 2:
-		pass
+		question_list = question_list_medium
 	elif GameManager.game_level == 3:
 		pass
 		
@@ -78,13 +133,6 @@ func _ready():
 	game_timer.set_wait_time(16/GameManager.game_speed)
 	game_timer.start()
 	
-	if GameManager.game_level == 1:
-		question_list = question_list_easy
-	elif GameManager.game_level == 2:
-		pass
-	elif GameManager.game_level == 3:
-		pass
-	
 	asked = []
 	
 	select_question_number_p1()
@@ -96,14 +144,171 @@ func _ready():
 	print(question_list[current_question_num_p2])
 	generate_question_p1(question_list[current_question_num_p1])
 	generate_question_p2(question_list[current_question_num_p2])
+	game_started = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	p1_time = game_timer.get_time_left()
-	p1_time_label.text = str("%.2f" % p1_time)
-	p2_time = game_timer.get_time_left()
-	p2_time_label.text = str("%.2f" % p2_time)
+	if done_1 == false:
+		p1_time = game_timer.get_time_left()
+		p1_time_label.text = str("%.2f" % p1_time)
+	if done_2 == false:
+		p2_time = game_timer.get_time_left()
+		p2_time_label.text = str("%.2f" % p2_time)
+	
+	
+	if Input.is_action_just_pressed("top_button_0") && game_started == true:
+		if lives_p1 > 0:
+			if current_correct_answer_p1 == 1:
+				questions_answered_p1 += 1
+				if questions_answered_p1 < questions_to_answer:
+					select_question_number_p1()
+					print(question_list[current_question_num_p1])
+					generate_question_p1(question_list[current_question_num_p1])
+				else:
+					done_1 = true
+					GameManager.p1_just_failed = false
+					blank_p1()
+			else:
+				sfx_wrong1.play()
+				lives_p1 -= 1
+				if lives_p1 <= 0:
+					done_1 = true
+					blank_p1()
+
+
+	if Input.is_action_just_pressed("left_button_0") && game_started == true:
+		if lives_p1 > 0:
+			if current_correct_answer_p1 == 2:
+				questions_answered_p1 += 1
+				if questions_answered_p1 < questions_to_answer:
+					select_question_number_p1()
+					print(question_list[current_question_num_p1])
+					generate_question_p1(question_list[current_question_num_p1])
+				else:
+					done_1 = true
+					GameManager.p1_just_failed = false
+					blank_p1()
+			else:
+				sfx_wrong1.play()
+				lives_p1 -= 1
+				if lives_p1 <= 0:
+					done_1 = true
+					blank_p1()
+
+	if Input.is_action_just_pressed("right_button_0") && game_started == true:
+		if lives_p1 > 0:
+			if current_correct_answer_p1 == 3:
+				questions_answered_p1 += 1
+				if questions_answered_p1 < questions_to_answer:
+					select_question_number_p1()
+					print(question_list[current_question_num_p1])
+					generate_question_p1(question_list[current_question_num_p1])
+				else:
+					done_1 = true
+					GameManager.p1_just_failed = false
+					blank_p1()
+			else:
+				sfx_wrong1.play()
+				lives_p1 -= 1
+				if lives_p1 <= 0:
+					done_1 = true
+					blank_p1()
+
+	if Input.is_action_just_pressed("bottom_button_0") && game_started == true:
+		if lives_p1 > 0:
+			if current_correct_answer_p1 == 4:
+				questions_answered_p1 += 1
+				if questions_answered_p1 < questions_to_answer:
+					select_question_number_p1()
+					print(question_list[current_question_num_p1])
+					generate_question_p1(question_list[current_question_num_p1])
+				else:
+					done_1 = true
+					GameManager.p1_just_failed = false
+					blank_p1()
+			else:
+				sfx_wrong1.play()
+				lives_p1 -= 1
+				if lives_p1 <= 0:
+					done_1 = true
+					blank_p1()
+	
+	if Input.is_action_just_pressed("top_button_1") && game_started == true:
+		if lives_p2 > 0:
+			if current_correct_answer_p2 == 1:
+				questions_answered_p2 += 1
+				if questions_answered_p2 < questions_to_answer:
+					select_question_number_p2()
+					print(question_list[current_question_num_p2])
+					generate_question_p2(question_list[current_question_num_p2])
+				else:
+					done_2 = true
+					GameManager.p2_just_failed = false
+					blank_p2()
+			else:
+				sfx_wrong2.play()
+				lives_p2 -= 1
+				if lives_p2 <= 0:
+					done_2 = true
+					blank_p2()
+		
+	if Input.is_action_just_pressed("left_button_1") && game_started == true:
+		if lives_p2 > 0:
+			if current_correct_answer_p2 == 2:
+				questions_answered_p2 += 1
+				if questions_answered_p2 < questions_to_answer:
+					select_question_number_p2()
+					print(question_list[current_question_num_p2])
+					generate_question_p2(question_list[current_question_num_p2])
+				else:
+					done_2 = true
+					GameManager.p2_just_failed = false
+					blank_p2()
+			else:
+				sfx_wrong2.play()
+				lives_p2 -= 1
+				if lives_p2 <= 0:
+					done_2 = true
+					blank_p2()
+		
+	if Input.is_action_just_pressed("right_button_1") && game_started == true:
+		if lives_p2 > 0:
+			if current_correct_answer_p2 == 3:
+				questions_answered_p2 += 1
+				if questions_answered_p2 < questions_to_answer:
+					select_question_number_p2()
+					print(question_list[current_question_num_p2])
+					generate_question_p2(question_list[current_question_num_p2])
+				else:
+					done_2 = true
+					GameManager.p2_just_failed = false
+					blank_p2()
+			else:
+				sfx_wrong2.play()
+				lives_p2 -= 1
+				if lives_p2 <= 0:
+					done_2 = true
+					blank_p2()
+		
+	if Input.is_action_just_pressed("bottom_button_1") && game_started == true:
+		if lives_p2 > 0:
+			if current_correct_answer_p2 == 4:
+				questions_answered_p2 += 1
+				if questions_answered_p2 < questions_to_answer:
+					select_question_number_p2()
+					print(question_list[current_question_num_p2])
+					generate_question_p2(question_list[current_question_num_p2])
+				else:
+					done_2 = true
+					GameManager.p2_just_failed = false
+					blank_p2()
+			else:
+				sfx_wrong2.play()
+				lives_p2 -= 1
+				if lives_p2 <= 0:
+					done_2 = true
+					blank_p2()
 
 func select_question_number_p1():
 	current_question_num_p1 = randi_range(0, question_list.size() - 1)
@@ -113,6 +318,28 @@ func select_question_number_p1():
 	if question_list == question_list_easy && (current_question_num_p1 == 5 || current_question_num_p1 == 6):
 		asked.append(5)
 		asked.append(6)
+	if question_list == question_list_easy && (current_question_num_p1 == 14 || current_question_num_p1 == 15):
+		asked.append(14)
+		asked.append(15)
+	if question_list == question_list_medium && (current_question_num_p1 >= 3 && current_question_num_p1 <= 20):
+		asked.append(3)
+		asked.append(4)
+		asked.append(5)
+		asked.append(6)
+		asked.append(7)
+		asked.append(8)
+		asked.append(9)
+		asked.append(10)
+		asked.append(11)
+		asked.append(12)
+		asked.append(13)
+		asked.append(14)
+		asked.append(15)
+		asked.append(16)
+		asked.append(17)
+		asked.append(18)
+		asked.append(19)
+		asked.append(20)
 
 func select_question_number_p2():
 	current_question_num_p2 = randi_range(0, question_list.size() - 1)
@@ -122,10 +349,32 @@ func select_question_number_p2():
 	if question_list == question_list_easy && (current_question_num_p2 == 5 || current_question_num_p2 == 6):
 		asked.append(5)
 		asked.append(6)
+	if question_list == question_list_easy && (current_question_num_p2 == 14 || current_question_num_p2 == 15):
+		asked.append(14)
+		asked.append(15)
+	if question_list == question_list_medium && (current_question_num_p2 >= 3 && current_question_num_p2 <= 20):
+		asked.append(3)
+		asked.append(4)
+		asked.append(5)
+		asked.append(6)
+		asked.append(7)
+		asked.append(8)
+		asked.append(9)
+		asked.append(10)
+		asked.append(11)
+		asked.append(12)
+		asked.append(13)
+		asked.append(14)
+		asked.append(15)
+		asked.append(16)
+		asked.append(17)
+		asked.append(18)
+		asked.append(19)
+		asked.append(20)
 
 func generate_question_p1(question):
 	#Pop the question and display
-	p1_question_label.text = question.pop_front()
+	p1_question_label.text = "[center]" + question.pop_front() + "[/center]"
 	
 	#Generate a number for the location of the answer and place it somewhere random, appending that random spot to already used
 	current_correct_answer_p1 = randi_range(1, 4)
@@ -181,7 +430,7 @@ func generate_question_p1(question):
 		
 func generate_question_p2(question):
 	#Pop the question and display
-	p2_question_label.text = question.pop_front()
+	p2_question_label.text = "[center]" + question.pop_front() + "[/center]"
 	
 	#Generate a number for the location of the answer and place it somewhere random, appending that random spot to already used
 	current_correct_answer_p2 = randi_range(1, 4)
@@ -235,6 +484,19 @@ func generate_question_p2(question):
 			p2_bottom_label.text = "[center]" + next_answer_to_put_in + "[/center]"
 		answers_placed += 1
 
+func blank_p1():
+	p1_question_label.text = ""
+	p1_top_label.text = ""
+	p1_left_label.text = ""
+	p1_right_label.text = ""
+	p1_bottom_label.text = ""
+	
+func blank_p2():
+	p2_question_label.text = ""
+	p2_top_label.text = ""
+	p2_left_label.text = ""
+	p2_right_label.text = ""
+	p2_bottom_label.text = ""
 
 func _on_game_timer_timeout():
 	get_tree().paused = true
@@ -245,6 +507,8 @@ func _on_game_timer_timeout():
 	await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
 	get_tree().paused = false
 	game_music.stop()
+	sfx_wrong1.stop()
+	sfx_wrong2.stop()
 	
 	all_done.emit()
 	
