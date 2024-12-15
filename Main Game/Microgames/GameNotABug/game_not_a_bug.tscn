@@ -62,6 +62,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -900.0
+offset_top = 460.0
+offset_right = 900.0
+offset_bottom = 490.0
+grow_horizontal = 2
+grow_vertical = 2
+show_percentage = false
+
 [node name="TransitionRect" type="TextureRect" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 8
@@ -77,21 +92,6 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(960, 540)
 texture = ExtResource("2_ww7di")
-
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -900.0
-offset_top = 460.0
-offset_right = 900.0
-offset_bottom = 490.0
-grow_horizontal = 2
-grow_vertical = 2
-show_percentage = false
 
 [node name="Swatter1" type="CharacterBody2D" parent="." node_paths=PackedStringArray("swat_cooldown_timer", "swat_area")]
 z_index = 1

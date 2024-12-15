@@ -337,11 +337,15 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("countdown_timer", "intermission_music_timer", "speed_up_music_timer", "intermission_label", "countdown_label", "p1_lives_label", "p2_lives_label", "round_count_label", "win_music", "neutral_music", "lose_music", "speed_up_music", "left_racoon", "right_racoon", "background_animation", "game_scene_container")]
+[node name="Main" type="Node" node_paths=PackedStringArray("countdown_timer", "intermission_music_timer", "speed_up_music_timer", "level_up_music_timer", "boss_music_timer", "special_speed_up_music_timer", "intro_timer", "intermission_label", "countdown_label", "p1_lives_label", "p2_lives_label", "round_count_label", "win_music", "neutral_music", "lose_music", "speed_up_music", "left_racoon", "right_racoon", "background_animation", "game_scene_container")]
 script = ExtResource("1_iurfd")
 countdown_timer = NodePath("CountdownTimer")
 intermission_music_timer = NodePath("IntermissionMusicTimer")
 speed_up_music_timer = NodePath("SpeedUpMusicTimer")
+level_up_music_timer = NodePath("LevelUpMusicTimer")
+boss_music_timer = NodePath("BossMusicTimer")
+special_speed_up_music_timer = NodePath("SpecialSpeedUpMusicTimer")
+intro_timer = NodePath("IntroTimer")
 intermission_label = NodePath("CanvasLayer/Control/Label")
 countdown_label = NodePath("CanvasLayer/Control/CountdownLabel")
 p1_lives_label = NodePath("CanvasLayer/Control/P1Lives")
@@ -442,6 +446,22 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 wait_time = 2.0
 one_shot = true
 
+[node name="IntroTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="SpecialSpeedUpMusicTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="LevelUpMusicTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="BossMusicTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [node name="CountdownTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
@@ -463,5 +483,9 @@ stream = ExtResource("5_t5hjq")
 stream = ExtResource("10_8ej0p")
 
 [connection signal="timeout" from="SpeedUpMusicTimer" to="." method="_on_speed_up_music_timer_timeout"]
+[connection signal="timeout" from="IntroTimer" to="." method="_on_intro_timer_timeout"]
+[connection signal="timeout" from="SpecialSpeedUpMusicTimer" to="." method="_on_special_speed_up_music_timer_timeout"]
+[connection signal="timeout" from="LevelUpMusicTimer" to="." method="_on_level_up_music_timer_timeout"]
+[connection signal="timeout" from="BossMusicTimer" to="." method="_on_boss_music_timer_timeout"]
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]
 [connection signal="timeout" from="IntermissionMusicTimer" to="." method="_on_intermission_music_timer_timeout"]

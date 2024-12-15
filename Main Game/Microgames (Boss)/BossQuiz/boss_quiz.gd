@@ -58,7 +58,7 @@ var question_list_easy = [
 var question_list_medium = [
 	["What year was COGS founded?", "2014", "", "", "", "2010", "2012", "2017", "2019", "2021", "2009", "1999", "2000", "2009", "2008", "2011"],
 	["What was [i]Minecraft[/i]'s original name?", "[i]Cave Game[/i]", "[i]Minecraft: Order of the Stone[/i]", "", "", "[i]Blockscape[/i]", "[i]Mine & Craft[/i]", "[i]Craftverse[/i]", "[i]Voxel World[/i]", "[i]Pixelcraft[/i]", "[i]Blocky Haven[/i]", "[i]My World[/i]", "[i]Pixel Forge[/i]", "[i]Worldbuilder[/i]", "[i]Cubic Horizons[/i]", "[i]Stone Realm[/i]", "[i]Treasure Planet[/i]", "[i]Hunt, Gather, Build[/i]", "[i]Dragonslayer[/i]"],
-	["What is the name of Klonoa's home town?", "Breezegale", "", "", "", "Littleroot", "Phantomile", "Lunatea", "Volk City", "Twinleaf", "Zinkenstill"],
+	["What is the name of Klonoa's home town?", "Breezegale", "", "", "", "Littleroot", "Phantomile", "Lunatea", "Volk City", "Twinleaf", "Zinkenstill", "Gongaga"],
 	["Which is a real Pokémon?", "Brambleghast", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
 	["Which is a real Pokémon?", "Centiskorch", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
 	["Which is a real Pokémon?", "Wishiwashi", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
@@ -89,8 +89,13 @@ var question_list_medium = [
 	["Who is the titular \"guilty Gear\" from the [i]Guilty Gear[/i] franchise?", "Sol Badguy", "", "", "", "Ky Kiske", "Leo Whitefang", "Ragna the Bloodedge", "Ramlethal Valentine", "Jack-O' Valentine", "Baiken", "Bedman", "Dizzy", "Ariels", "Asuka R. Kreutz", "Kliff Undersn", "Testament", "Justice", "Saul Goodman"],
 	["During a promotoional Q&A video for the 30th anniversary of [i]Super Mario Bros.[/i], series creator Shigeru Miyamoto reveals that Bowser Jr.'s mother is who?", "Shigeru Miyamoto himself", "Princess Peach", "", "", "Princess Daisy", "Princess Rosalina", "Pauline", "Mario", "Luigi", "Kamek", "An unknown deceased character.", "Not even Shigeru Miyamoto knows.", "Bowser Jr. has no mother, and Bowser is capable of asexual reproduction."],
 	["As of 2024, the world record speedrun for the original [i]Super Mario Bros.[/i] takes _____.", "around 5 minutes", "", "", "", "around 1 minute", "around 2 minutes", "around 10 minutes", "around 15 minutes", "around 20 minutes", "around 30 minutes", "around 1 hour", "around 30 seconds"],
-	["The Lowain Bros from [i]Granblue Fantasy[/i] are also collectively known as _____.", "The Brofam", "", "", "", "Dandylions Blooming in the Tosh", "The Bromance", "The Katalina Fan Club", "The Yggdrasil Fan Club", "The Freesia von Bismarck Fan Club", "The Swinger Trio", "The Human Pyramid", "Magnificent Tools of Destruction"],
+	["The Lowain Bros from [i]Granblue Fantasy[/i] are also collectively known as _____.", "The Brofam", "", "", "", "Dandylions Blooming in the Tosh", "The Bromance", "The Katalina Fan Club", "The Yggdrasil Fan Club", "The Freesia von Bismarck Fan Club", "The Swinger Trio", "The Human Pyramid", "Magnificent Tools of Destruction", "The Dudebros"],
 	["In [i]Pokémon Diamond[/i], [i]Pokémon Pearl[/i], and [i]Pokémon Platinum[/i], the device obtained in Jubilife City that occupies the DS' touch screen is called the _____.", "Pokétch", "", "", "", "Pokétech", "Pokédex", "PokéNav", "Pokégear", "C-Gear", "Cell Phone", "Xtransceiver"]
+]
+
+var question_list_hard =  [
+	["What's 9 + 10?", "21", "19", "", "", "20", "22", "4", "910", "2", "1", "90", "-1", "0.9"],
+	["What's Obama's last name?", "Soda", "Obama", "Care", "", "Obamna", "Barack", "Baracko", "Hussein", "Bush", "Biden", "Clinton"]
 ]
 
 var current_correct_answer_p1 = 0
@@ -105,7 +110,6 @@ var game_started = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
 	GameManager.p1_just_failed = true
 	GameManager.p2_just_failed = true
 	
@@ -115,7 +119,7 @@ func _ready():
 	elif GameManager.game_level == 2:
 		question_list = question_list_medium
 	elif GameManager.game_level == 3:
-		pass
+		question_list = question_list_hard
 		
 	get_tree().paused = true
 	
