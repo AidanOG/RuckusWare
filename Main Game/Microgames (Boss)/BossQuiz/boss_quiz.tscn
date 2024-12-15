@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbj5ok0hqnu0l"]
+[gd_scene load_steps=6 format=3 uid="uid://bbj5ok0hqnu0l"]
 
 [ext_resource type="Script" path="res://Main Game/Microgames (Boss)/BossQuiz/boss_quiz.gd" id="1_ej77l"]
 [ext_resource type="Texture2D" uid="uid://bl0m4gkoiwpfa" path="res://scuffed transition2 no onionskin.png" id="2_d0owr"]
 [ext_resource type="AudioStream" uid="uid://das6oobng6oby" path="res://Main Game/Microgames/GameHotDog/Hot Dog Microgame.wav" id="3_ckhsl"]
 [ext_resource type="AudioStream" uid="uid://dh4looa2jpssd" path="res://Main Game/Microgames (Boss)/BossQuiz/vine_boom.ogg" id="4_f74tn"]
+[ext_resource type="AudioStream" uid="uid://bltiodj7mpyue" path="res://Main Game/Microgames (Boss)/BossQuiz/21.wav" id="5_ev02j"]
 
-[node name="BossQuiz" type="Node" node_paths=PackedStringArray("transition_rect", "game_music", "game_timer", "p1_time_label", "p2_time_label", "p1_question_label", "p2_question_label", "p1_top_label", "p1_left_label", "p1_right_label", "p1_bottom_label", "p2_top_label", "p2_left_label", "p2_right_label", "p2_bottom_label", "sfx_wrong1", "sfx_wrong2")]
+[node name="BossQuiz" type="Node" node_paths=PackedStringArray("transition_rect", "game_music", "game_timer", "p1_time_label", "p2_time_label", "p1_question_label", "p2_question_label", "p1_top_label", "p1_left_label", "p1_right_label", "p1_bottom_label", "p2_top_label", "p2_left_label", "p2_right_label", "p2_bottom_label", "sfx_wrong1", "sfx_wrong2", "sfx_stupid1", "sfx_stupid2")]
 script = ExtResource("1_ej77l")
 transition_rect = NodePath("CanvasLayer/Control/TransitionRect")
 game_music = NodePath("GameMusic")
@@ -24,6 +25,8 @@ p2_right_label = NodePath("CanvasLayer/Control/HBoxContainer/P2Side/P2Right")
 p2_bottom_label = NodePath("CanvasLayer/Control/HBoxContainer/P2Side/P2Bottom")
 sfx_wrong1 = NodePath("SFXWrong1")
 sfx_wrong2 = NodePath("SFXWrong2")
+sfx_stupid1 = NodePath("SFXStupid1")
+sfx_stupid2 = NodePath("SFXStupid2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -268,7 +271,13 @@ one_shot = true
 [node name="SFXWrong1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_f74tn")
 
+[node name="SFXStupid1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ev02j")
+
 [node name="SFXWrong2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_f74tn")
+
+[node name="SFXStupid2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_ev02j")
 
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

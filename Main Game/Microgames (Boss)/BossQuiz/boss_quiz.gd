@@ -20,6 +20,8 @@ extends BaseMicrogame
 
 @export var sfx_wrong1: AudioStreamPlayer
 @export var sfx_wrong2: AudioStreamPlayer
+@export var sfx_stupid1: AudioStreamPlayer
+@export var sfx_stupid2:AudioStreamPlayer
 
 var questions_to_answer = 3
 
@@ -52,13 +54,23 @@ var question_list_easy = [
 	["Mega Man has a younger sister named _____.", "Roll", "", "", "", "Dr. Light", "Dr. Wily", "Mega Woman", "Mega Girl", "Bass", "Sigma", "Rush", "Elec Woman", "Elec Girl", "Roxanne", "Tron Bonne", "Blues"],
 	["What is the maximum number of Power Stars a player can collect in the original [i]Super Mario 64[/i]?", "120", "", "", "", "100", "150", "50", "200", "300", "180", "250", "115", "90", "105", "880", "999"],
 	["Who is the final boss in [i]Terraria[/i]?", "Moon Lord", "", "", "", "Cthulhu", "Supreme Calamitas", "Devourer of Gods", "Wall of Flesh", "Empress of Light", "Slime God", "Lunatic Cultist", "Exo Mechs", "Ocram", "Hive Mind of Cthulhu", "Ancient Vision", "Phantasm Dragon", "True Eye of Cthulhu", "Terrarian"],
-	["What game originated the old meme phrase \"The cake is a lie\"?", "[i]Portal[/i]", "", "", "", "[i]Half-Life[/i]", "[i]Team Fortress 2[/i]", "[i]Minecraft[/i]", "[i]Terraria[/i]", "[i]Goat Simulator[/i]", "[i]Life is Strange[/i]", "[i]YIIK: A Post-Modern RPG[/i]"]
+	["What game originated the old meme phrase \"The cake is a lie\"?", "[i]Portal[/i]", "", "", "", "[i]Half-Life[/i]", "[i]Team Fortress 2[/i]", "[i]Minecraft[/i]", "[i]Terraria[/i]", "[i]Goat Simulator[/i]", "[i]Life is Strange[/i]", "[i]YIIK: A Post-Modern RPG[/i]"],
+	["What is the name of the kingdom that Princess Zelda rules over in most [i]The Legend of Zelda[/i] games?", "Hyrule", "", "", "", "Termina", "Kakariko", "Outset", "Pallet", "Phantomile", "Lunatea", "Gerudo", "Goron", "Hateno", "Eldin", "Morshu", "Sarasaland"],
+	["What is the name of the 2021 visual novel where you can court the Rutgers buses?", "[i]Last Stop: Your Heart![/i]", "", "", "", "[i]Rutgers Bus Dating Simulator[/i]", "[i]Scarlet Routes of Love[/i]", "[i]Road to My Heart[/i]", "[i]RU Mine?[/i]", "[i]Next Stop: Romance[/i]", "[i]Red Bus Rendezvous[/i]"],
+	["What iconic item is usually used to save your game progress in [i]Resident Evil[/i] games?", "Typewriter", "", "", "", "Tape Recorder", "Video Camera", "Diary", "Bed", "Toilet", "Mirror", "Cell Phone", "Bathroom Sink"],
+	["Who was the final boss in the original [i]Punch-Out!![/i] for the NES?", "Mike Tyson", "", "", "", "Little Mac", "Doc Louis", "Donkey Kong", "Mr. Sandman", "Super Macho Man", "Nick Bruiser"],
+	["What is the name of the town the player moves to at the beginning of [i]Stardew Valley[/i]?", "Pelican Town", "Zuzu City", "", "", "Terraria City", "Hyrule City", "River Village", "Willow Town", "Cindersap Town", "Pallet Town", "Backwoods Village"],
+	["Who is Crash Bandicoot's sworn nemesis?", "Doctor Neo Cortex", "", "", "", "Doctor N. Tropy", "Doctor N. Gin", "Doctor N. Brio", "Uka Uka", "Aku Aku", "Nitros Oxide", "Doctor Robotnik", "Fake Crash", "Tiny Tiger", "Ripper Roo", "Dingodile", "Pinstripe Potoroo"],
+	["As of 2024, what is the best-selling game of all time?", "[i]Minecraft[/i]", "[i]Grand Theft Auto V[/i]", "", "", "Wii Sports", "[i]PUBG: Battlegrounds[/i]", "[i]Mario Kart 8[/i]", "[i]Red Dead Redemption 2[/i]", "[i]Terraria[/i]", "[i]Super Mario Bros.[/i]", "[i]Overwatch[/i]", "[i]Animal Crossing: New Horizons[/i]", "[i]Pokémon Diamond/Pokémon Pearl/Pokémon Platinum[/i]", "[i]Elden Ring[/i]"],
+	["Which [i]Super Smash Bros.[/i] game introduced Final Smashes?", "[i]Super Smash Bros. Brawl[/i]", "", "", "", "[i]Super Smash Bros. 64[/i]", "[i]Super Smash Bros. Melee[/i]", "[i]Super Smash Bros. for Nintendo 3DS and Wii U[/i]", "[i]Super Smash Bros. Ultimate[/i]"],
+	["What is the name of Kirby's home planet?", "Popstar", "Dream Land", "", "", "Halcandra", "Robobot", "Floralia", "Ripple Star", "Rock Star", "Shiver Star", "Neo Star", "Dark Star", "Hotbeat", "Patch Land", "Aqua Star"],
+	["What was the name of the Xbox 360's motion-sensing peripheral?", "Xbox Kinect", "", "", "", "Project Natal", "Xbox Sense", "Xbox Move", "Xbox Go", "Xbox MotionPlus", "X Vision"]
 ]
 
 var question_list_medium = [
 	["What year was COGS founded?", "2014", "", "", "", "2010", "2012", "2017", "2019", "2021", "2009", "1999", "2000", "2009", "2008", "2011"],
 	["What was [i]Minecraft[/i]'s original name?", "[i]Cave Game[/i]", "[i]Minecraft: Order of the Stone[/i]", "", "", "[i]Blockscape[/i]", "[i]Mine & Craft[/i]", "[i]Craftverse[/i]", "[i]Voxel World[/i]", "[i]Pixelcraft[/i]", "[i]Blocky Haven[/i]", "[i]My World[/i]", "[i]Pixel Forge[/i]", "[i]Worldbuilder[/i]", "[i]Cubic Horizons[/i]", "[i]Stone Realm[/i]", "[i]Treasure Planet[/i]", "[i]Hunt, Gather, Build[/i]", "[i]Dragonslayer[/i]"],
-	["What is the name of Klonoa's home town?", "Breezegale", "", "", "", "Littleroot", "Phantomile", "Lunatea", "Volk City", "Twinleaf", "Zinkenstill", "Gongaga"],
+	["What is the name of Klonoa's home town?", "Breezegale", "", "", "", "Littleroot", "Phantomile", "Lunatea", "Volk City", "Twinleaf", "Zinkenstill", "Gongaga", "Hyrule"],
 	["Which is a real Pokémon?", "Brambleghast", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
 	["Which is a real Pokémon?", "Centiskorch", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
 	["Which is a real Pokémon?", "Wishiwashi", "", "", "", "Tentaquil", "Slimer", "Crawltipede", "Orbulon", "Bohldohr", "Crabulon", "Spectrafin", "Rockodile", "Voltergeist", "Venomenon", "Skullipede", "Cactyke", "Waykeewaykee", "Frostina", "Plantera", "Glumm", "Dynamax", "Klonoa", "Primadon", "Pompompurin", "Kodra", "Bronzilla", "Cnidrion", "Azathoth", "Lusamine", "Iron Jaw", "Iron Stamp", "Verdant Sail", "Sundering Sun"],
@@ -85,17 +97,41 @@ var question_list_medium = [
 	["What is the name of Wario's brother?", "Wario doesn't have a brother.", "Waluigi", "", "", "Mario", "Luigi", "Jimmy T.", "18-Volt", "Wario-Man"],
 	["After global launch, [i]Zenless Zone Zero[/i]'s first Exclusive Channel featureed which S-rank character?", "Ellen Joe", "", "", "", "Zhu Yuan", "Hoshimi Miyabi", "Belle", "Wise", "Anby", "Nicole", "Billy Kid", "Nekomiya Mana", "Ben Bigger", "Jane Doe", "Seth", "Qingyi", "Ellen Degeneres", "Klee", "Venti", "Zhongli", "Ganyu", "Hu Tao"],
 	["What game originated the old meme phrase \"All your base are belong to us\"?", "[i]Zero Wing[/i]", "", "", "", "[i]Contra[/i]", "[i]Mega Man[/i]", "[i]Half-Life[/i]", "[i]Portal[/i]", "[i]Metal Gear[/i]", "[i]Star Fox[/i]", "[i]Metroid[/i]", "[i]Hogan's Alley[/i]", "[i]Pilotwings[/i]", "[i]Double Dragon[/i]"],
-	["Nintendo was originally founded to produce what?", "Playing cards", "", "", "", "Polaroid cameras", "Plush toys", "Electrical cables", "Circuit boards", "Scented candles", "Children's books"],
+	["Nintendo was originally founded to produce what?", "Playing cards", "", "", "", "Polaroid cameras", "Plush toys", "Electrical cables", "Circuit boards", "Scented candles", "Children's books", "Action figures"],
 	["Who is the titular \"guilty Gear\" from the [i]Guilty Gear[/i] franchise?", "Sol Badguy", "", "", "", "Ky Kiske", "Leo Whitefang", "Ragna the Bloodedge", "Ramlethal Valentine", "Jack-O' Valentine", "Baiken", "Bedman", "Dizzy", "Ariels", "Asuka R. Kreutz", "Kliff Undersn", "Testament", "Justice", "Saul Goodman"],
 	["During a promotoional Q&A video for the 30th anniversary of [i]Super Mario Bros.[/i], series creator Shigeru Miyamoto reveals that Bowser Jr.'s mother is who?", "Shigeru Miyamoto himself", "Princess Peach", "", "", "Princess Daisy", "Princess Rosalina", "Pauline", "Mario", "Luigi", "Kamek", "An unknown deceased character.", "Not even Shigeru Miyamoto knows.", "Bowser Jr. has no mother, and Bowser is capable of asexual reproduction."],
 	["As of 2024, the world record speedrun for the original [i]Super Mario Bros.[/i] takes _____.", "around 5 minutes", "", "", "", "around 1 minute", "around 2 minutes", "around 10 minutes", "around 15 minutes", "around 20 minutes", "around 30 minutes", "around 1 hour", "around 30 seconds"],
-	["The Lowain Bros from [i]Granblue Fantasy[/i] are also collectively known as _____.", "The Brofam", "", "", "", "Dandylions Blooming in the Tosh", "The Bromance", "The Katalina Fan Club", "The Yggdrasil Fan Club", "The Freesia von Bismarck Fan Club", "The Swinger Trio", "The Human Pyramid", "Magnificent Tools of Destruction", "The Dudebros"],
-	["In [i]Pokémon Diamond[/i], [i]Pokémon Pearl[/i], and [i]Pokémon Platinum[/i], the device obtained in Jubilife City that occupies the DS' touch screen is called the _____.", "Pokétch", "", "", "", "Pokétech", "Pokédex", "PokéNav", "Pokégear", "C-Gear", "Cell Phone", "Xtransceiver"]
+	["The Lowain Bros from [i]Granblue Fantasy[/i] are also collectively known as _____.", "The Brofam", "", "", "", "Dandylions Blooming in the Tosh", "The Bromance", "The Katalina Fan Club", "The Yggdrasil Fan Club", "The Freesia von Bismarck Fan Club", "The Swinger Trio", "The Human Pyramid", "The Magnificent Tools of Destruction", "The Dudebros", "The Shadow Triad"],
+	["In [i]Pokémon Diamond[/i], [i]Pokémon Pearl[/i], and [i]Pokémon Platinum[/i], the device obtained in Jubilife City that occupies the DS' touch screen is called the _____.", "Pokétch", "", "", "", "Pokétech", "Pokédex", "PokéNav", "Pokégear", "C-Gear", "Cell Phone", "Xtransceiver"],
+	["Which one of these is [i]not[/i] a virus from the [i]Resident Evil[/i] series?", "G-Veronica virus", "", "", "", "T-virus", "G-virus", "T-Veronica virus", "NE-T virus", "Progenitor virus"],
+	["Which one of these is [i]not[/i] a virus from the [i]Resident Evil[/i] series?", "Z-virus", "", "", "", "T-virus", "G-virus", "T-Veronica virus", "NE-T virus", "Progenitor virus"],
+	["Who is the first companion to join Mario on his journey in [i]Paper Mario: The Thousand-Year Door[/i]?", "Goombella", "", "", "", "Vivian", "Goombario", "Luigi", "Princess Peach", "Kooper", "Bombette", "Lady Bow", "Koops", "Madame Flurrie", "Admiral Bobbery", "Olivia", "Kersti", "Geno", "Mallow", "Huey", "Starlow", "Stuffwell", "Toad", "Yoshi", "Prince Dreambert"],
+	["What was the first video game played in outer space?", "[i]Tetris[/i]", "", "", "", "[i]Pong[/i]", "[i]Super Mario Bros.[/i]", "[i]Pokémon Red[/i]", "[i]Pokémon Blue[/i]", "[i]Super Mario Kart[/i]", "[i]Pac-Man[/i]", "[i]Dig Dug[/i]"],
+	["What animal is Tom Nook from the [i]Animal Crossing[/i] series?", "Tanuki", "Nook", "", "", "Human", "Dog", "Cat", "Rabbit", "Mouse", "Bear", "Raccoon", "Fox"],
+	["Who is the titular \"Twilight Princess\" from the [i]The Legend of Zelda: Twilight Princess[/i]?", "Midna", "Princess Zelda", "", "", "Princess Hilda", "Ilia", "Impa", "Epona", "Nayru", "Din", "Farore"]
 ]
 
 var question_list_hard =  [
 	["What's 9 + 10?", "21", "19", "", "", "20", "22", "4", "910", "2", "1", "90", "-1", "0.9"],
-	["What's Obama's last name?", "Soda", "Obama", "Care", "", "Obamna", "Barack", "Baracko", "Hussein", "Bush", "Biden", "Clinton"]
+	["What's Obama's last name?", "Soda", "Obama", "Care", "", "Obamna", "Barack", "Baracko", "Hussein", "Bush", "Biden", "Clinton"],
+	["What is the name of the iconic blue shark plush toy sold at IKEA stores?", "Blåhaj", "", "", "", "Djungelskog", "Blåvingad", "Aftonsparv", "Skogsduva", "Kramig", "Söt Barnslig", "Gosig Golden", "Lilleplutt", "Jättestor", "Famnig Hjärta", "Fabler Björn", "Snuttig", "Jättelik", "Knorrig", "Titta Djur", "Livlig", "Brummig", "Sparka", "Gulligast", "Drömslott", "Utsådd", "Guldvävare"],
+	["Ooh-eee!", "Ooh-ah-ah!", "", "", "", "Ting-tang!", "Walla-walla bing-bang!", "Eee-ooh!", "Ah-ooh!", "Eee-ah-ah!", "Eee-ah!", "Ah-eee!", "Ah-ooh-ooh!"],
+	["What the dog doin'?", "Taking an Ice Breakers mint.", "", "", "", "Opening the door for the Pizza Hut delivery guy.", "Stealing a Dr. Pepper from the fridge.", "Spraying Febreze around the living room.", "Flirting with female dogs after using Old Spice body spray.", "Riding on top of a Roomba.", "Playing [i]Kirby Super Star Ultra[/i] for Nintendo DS.", "Sitting in the driver's seat of a car at the Wendy's drive-thru."],
+	["What is the 7th letter of the alphabet?", "H", "G", "", "", "I", "J", "E", "F", "7"],
+	["What is the minimum number of Spongebobs it would take to defeat Goku?", "30,000,000,000", "", "", "", "1,000,000,000,000", "2", "5,000,000", "No amount of Spongebobs could ever defeat Goku.", "400,000", "∞", "8,000,000", "7,000,000,000", "600,000,000,000"],
+	["Name something a burglar would not wanna see when he breaks into a house.", "Naked grandma", "", "", "", "An occupant", "A dog", "A police officer", "A completely empty house with no furniture", "Another burglar", "A video camera", "An alarm system", "Perfect Cell"],
+	["Did you get those photos printed?", "Bogos binted?", "", "", "", "No.", "Yes.", "Not yet.", "I'll do it tomorrow."],
+	["How many holes in a polo?", "4", "", "", "", "1", "2", "3", "5", "0"],
+	["What game would you hate for your wife to walk in on you playing?", "[i]Meet 'n' F*** Kingdom[/i]", "", "", "", "[i]Doki Doki Literature Club![/i]", "[i]Genshin Impact[/i]", "[i]Zenless Zone Zero[/i]", "[i]Arknights[/i]", "[i]Phucker in the Gulag[/i]", "[i]Phucker in the Woods[/i]", "[i]Phucker in the Rome[/i]", "[i]Azur Lane[/i]", "[i]Goddess of Victory: Nikke[/i]", "[i]Wuthering Waves[/i]", "[i]Honkai: Star Rail[/i]", "[i]Yandere Simulator[/i]"],
+	["Steve Harvey", "Steve Harvet", "Steve Harvey", "", "", "Richard Dawson", "Ray Combs", "Louie Anderson", "Richard Karn", "John O'Hurley"],
+	["Can a match box?", "No, but a tin can.", "", "", "", "Yes.", "No.", "I don't know1.", "Yes, one beat Mike Tyson."],
+	[".sdrawkcab noitseuq siht rewsnA", "KO", "", "", "", "What?", "I don't understand.", "Tennis elblow.", ".ti teg t'nod I"],
+	["What follows December 2nd?", "n", "December 3rd", "A question mark", "142 dwarves"],
+	["What's worse than a burga and fries?", "Evil burga, with a side of horror fries.", "", "", "", "Burga with no fries.", "Fries with no burga.", "Funky burga, with a side of disco fries.", "Putrid burga, with a side of fetid fries."],
+	["What year is it?", "Aawagga", "After lunch", "1962"],
+	["The \"king's hand\" is a dish consisting of an M&M cookie shaped like a hollow hand that is filled with _____.", "greek salad", "", "", "", "Caesar salad", "ambrosia", "yogurt", "icing", "cookie dough", "tuna salad", "egg salad", "lox", "cream cheese", "beans", "Cobb salad", "chicken salad", "corned beef", "sardines", "marmalade"],
+	["They put Fanum on a _____.", "horse", "", "", "", "mule", "donkey", "ostritch", "camel", "pig", "buffalo", "llama", "elephant", "cow", "yak", "moose", "lion", "payment plan"],
+	["Which day of the week follows Wednesday?", "Logsday", "Thursday", "", "", "Monday", "Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"]
 ]
 
 var current_correct_answer_p1 = 0
@@ -119,6 +155,7 @@ func _ready():
 	elif GameManager.game_level == 2:
 		question_list = question_list_medium
 	elif GameManager.game_level == 3:
+		append_year_question()
 		question_list = question_list_hard
 		
 	get_tree().paused = true
@@ -149,6 +186,11 @@ func _ready():
 	generate_question_p1(question_list[current_question_num_p1])
 	generate_question_p2(question_list[current_question_num_p2])
 	game_started = true
+	
+	sfx_wrong1.set_pitch_scale(GameManager.game_speed)
+	sfx_wrong2.set_pitch_scale(GameManager.game_speed)
+	sfx_stupid1.set_pitch_scale(GameManager.game_speed)
+	sfx_stupid2.set_pitch_scale(GameManager.game_speed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -179,6 +221,8 @@ func _process(delta):
 				if lives_p1 <= 0:
 					done_1 = true
 					blank_p1()
+					await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
+					sfx_stupid1.play()
 
 
 	if Input.is_action_just_pressed("left_button_0") && game_started == true:
@@ -199,7 +243,9 @@ func _process(delta):
 				if lives_p1 <= 0:
 					done_1 = true
 					blank_p1()
-
+					await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
+					sfx_stupid1.play()
+					
 	if Input.is_action_just_pressed("right_button_0") && game_started == true:
 		if lives_p1 > 0:
 			if current_correct_answer_p1 == 3:
@@ -218,7 +264,9 @@ func _process(delta):
 				if lives_p1 <= 0:
 					done_1 = true
 					blank_p1()
-
+					await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
+					sfx_stupid1.play()
+					
 	if Input.is_action_just_pressed("bottom_button_0") && game_started == true:
 		if lives_p1 > 0:
 			if current_correct_answer_p1 == 4:
@@ -237,7 +285,9 @@ func _process(delta):
 				if lives_p1 <= 0:
 					done_1 = true
 					blank_p1()
-	
+					await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
+					sfx_stupid1.play()
+					
 	if Input.is_action_just_pressed("top_button_1") && game_started == true:
 		if lives_p2 > 0:
 			if current_correct_answer_p2 == 1:
@@ -256,7 +306,9 @@ func _process(delta):
 				if lives_p2 <= 0:
 					done_2 = true
 					blank_p2()
-		
+					await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
+					sfx_stupid2.play()
+					
 	if Input.is_action_just_pressed("left_button_1") && game_started == true:
 		if lives_p2 > 0:
 			if current_correct_answer_p2 == 2:
@@ -275,6 +327,8 @@ func _process(delta):
 				if lives_p2 <= 0:
 					done_2 = true
 					blank_p2()
+					await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
+					sfx_stupid2.play()
 		
 	if Input.is_action_just_pressed("right_button_1") && game_started == true:
 		if lives_p2 > 0:
@@ -294,6 +348,8 @@ func _process(delta):
 				if lives_p2 <= 0:
 					done_2 = true
 					blank_p2()
+					await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
+					sfx_stupid2.play()
 		
 	if Input.is_action_just_pressed("bottom_button_1") && game_started == true:
 		if lives_p2 > 0:
@@ -313,6 +369,8 @@ func _process(delta):
 				if lives_p2 <= 0:
 					done_2 = true
 					blank_p2()
+					await get_tree().create_timer(0.5/ GameManager.game_speed).timeout
+					sfx_stupid2.play()
 
 func select_question_number_p1():
 	current_question_num_p1 = randi_range(0, question_list.size() - 1)
@@ -344,6 +402,9 @@ func select_question_number_p1():
 		asked.append(18)
 		asked.append(19)
 		asked.append(20)
+	if question_list == question_list_medium && (current_question_num_p1 == 35 || current_question_num_p1 == 36):
+		asked.append(35)
+		asked.append(36)
 
 func select_question_number_p2():
 	current_question_num_p2 = randi_range(0, question_list.size() - 1)
@@ -375,6 +436,9 @@ func select_question_number_p2():
 		asked.append(18)
 		asked.append(19)
 		asked.append(20)
+	if question_list == question_list_medium && (current_question_num_p2 == 35 || current_question_num_p2 == 36):
+		asked.append(35)
+		asked.append(36)
 
 func generate_question_p1(question):
 	#Pop the question and display
@@ -513,6 +577,8 @@ func _on_game_timer_timeout():
 	game_music.stop()
 	sfx_wrong1.stop()
 	sfx_wrong2.stop()
+	sfx_stupid1.stop()
+	sfx_stupid2.stop()
 	
 	all_done.emit()
 	
@@ -568,3 +634,8 @@ func craft_date_question():
 	question_list_easy[8].append(str(month - 1) + "/" + str(day + 1) + "/" + str(year))
 	question_list_easy[8].append(str(month + 1) + "/" + str(day - 1) + "/" + str(year))
 	question_list_easy[8].append(str(month - 1) + "/" + str(day - 1) + "/" + str(year))
+	
+func append_year_question():
+	var date = Time.get_date_dict_from_system(false)
+	var year = int(date.year)
+	question_list_hard[16].append(str(year))
