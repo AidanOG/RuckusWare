@@ -39,7 +39,7 @@ var done_2 = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# transition_rect.texture = GameManager.transition_tex
-	
+	#GameManager.game_speed = 3.0
 	timer_bar.max_value = 7.5/GameManager.game_speed
 	timer_bar.min_value = 0
 	timer_bar.value = 7.5
@@ -83,9 +83,9 @@ func _ready():
 	tick_timer_1.set_wait_time((7.5 - 0.5)/GameManager.game_speed)
 	tick_timer_2.set_wait_time((7.5 - 1.0)/GameManager.game_speed)
 	tick_timer_3.set_wait_time((7.5 - 1.5)/GameManager.game_speed)
-	target_timer_1.set_wait_time(randf_range(0.0, (5.5/ GameManager.game_speed)))
+	target_timer_1.set_wait_time(randf_range(0.0, (5.0/ GameManager.game_speed)))
 	target_timer_1.start()
-	target_timer_2.set_wait_time(randf_range(0.0, (5.5/ GameManager.game_speed)))
+	target_timer_2.set_wait_time(randf_range(0.0, (5.0/ GameManager.game_speed)))
 	target_timer_2.start()
 	
 	tick_timer_1.start()

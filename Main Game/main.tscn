@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://nvxl21de0npd"]
+[gd_scene load_steps=71 format=3 uid="uid://nvxl21de0npd"]
 
 [ext_resource type="Script" path="res://Main Game/main.gd" id="1_iurfd"]
 [ext_resource type="PackedScene" uid="uid://bvyrijkk18iiq" path="res://Main Game/Microgames/GameHotDog/game_grab_stick.tscn" id="2_010jw"]
@@ -49,6 +49,7 @@
 [ext_resource type="Texture2D" uid="uid://dx7ukxwirmukc" path="res://Main Game/Animations/Win/Rough_Win_0013.png" id="40_gaioe"]
 [ext_resource type="Texture2D" uid="uid://djl05w7q67xe4" path="res://Main Game/Animations/Win/Rough_Win_0014.png" id="41_gvbgh"]
 [ext_resource type="Texture2D" uid="uid://dxbnf7ny6l86l" path="res://Main Game/Animations/Win/Rough_Win_0015.png" id="42_u5npx"]
+[ext_resource type="Texture2D" uid="uid://bb6pce6f5blxk" path="res://Main Game/Animations/heart 1.png" id="46_0omg6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_r2vpm"]
 animations = [{
@@ -60,6 +61,185 @@ animations = [{
 "name": &"default",
 "speed": 4.0
 }]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oh1ac"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_0omg6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_sx723"]
+resource_name = "pulse"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_poe4l"]
+_data = {
+"pulse": SubResource("Animation_sx723")
+}
+
+[sub_resource type="Animation" id="Animation_g54ok"]
+resource_name = "pulse"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nay5k"]
+_data = {
+"pulse": SubResource("Animation_g54ok")
+}
+
+[sub_resource type="Animation" id="Animation_hjibp"]
+resource_name = "pulse"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w2p2t"]
+_data = {
+"pulse": SubResource("Animation_hjibp")
+}
+
+[sub_resource type="Animation" id="Animation_6lrjm"]
+resource_name = "pulse"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sm7a1"]
+_data = {
+"pulse": SubResource("Animation_6lrjm")
+}
+
+[sub_resource type="Animation" id="Animation_05wil"]
+resource_name = "pulse"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1uciv"]
+_data = {
+"pulse": SubResource("Animation_05wil")
+}
+
+[sub_resource type="Animation" id="Animation_1nt28"]
+resource_name = "pulse"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ehtdc"]
+_data = {
+"pulse": SubResource("Animation_1nt28")
+}
+
+[sub_resource type="Animation" id="Animation_jr1hj"]
+resource_name = "pulse"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a8atw"]
+_data = {
+"pulse": SubResource("Animation_jr1hj")
+}
+
+[sub_resource type="Animation" id="Animation_uywpb"]
+resource_name = "pulse"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qvg5k"]
+_data = {
+"pulse": SubResource("Animation_uywpb")
+}
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vdf6n"]
 animations = [{
@@ -337,7 +517,7 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="Main" type="Node" node_paths=PackedStringArray("countdown_timer", "intermission_music_timer", "speed_up_music_timer", "level_up_music_timer", "boss_music_timer", "special_speed_up_music_timer", "intro_timer", "intermission_label", "countdown_label", "p1_lives_label", "p2_lives_label", "round_count_label", "win_music", "neutral_music", "lose_music", "speed_up_music", "left_racoon", "right_racoon", "background_animation", "game_scene_container")]
+[node name="Main" type="Node" node_paths=PackedStringArray("countdown_timer", "intermission_music_timer", "speed_up_music_timer", "level_up_music_timer", "boss_music_timer", "special_speed_up_music_timer", "intro_timer", "intermission_label", "countdown_label", "p1_lives_label", "p2_lives_label", "round_count_label", "win_music", "neutral_music", "lose_music", "speed_up_music", "left_racoon", "right_racoon", "background_animation", "heart_1", "heart_2", "heart_3", "heart_4", "heart_5", "heart_6", "heart_7", "heart_8", "beat_timer", "heart_1_animation", "heart_2_animation", "heart_3_animation", "heart_4_animation", "heart_5_animation", "heart_6_animation", "heart_7_animation", "heart_8_animation", "game_scene_container")]
 script = ExtResource("1_iurfd")
 countdown_timer = NodePath("CountdownTimer")
 intermission_music_timer = NodePath("IntermissionMusicTimer")
@@ -358,6 +538,23 @@ speed_up_music = NodePath("SpeedUp")
 left_racoon = NodePath("CanvasLayer/LeftRacoon")
 right_racoon = NodePath("CanvasLayer/RightRacoon")
 background_animation = NodePath("CanvasLayer/Background")
+heart_1 = NodePath("CanvasLayer/Heart1")
+heart_2 = NodePath("CanvasLayer/Heart2")
+heart_3 = NodePath("CanvasLayer/Heart3")
+heart_4 = NodePath("CanvasLayer/Heart4")
+heart_5 = NodePath("CanvasLayer/Heart5")
+heart_6 = NodePath("CanvasLayer/Heart6")
+heart_7 = NodePath("CanvasLayer/Heart7")
+heart_8 = NodePath("CanvasLayer/Heart8")
+beat_timer = NodePath("BeatTimer")
+heart_1_animation = NodePath("CanvasLayer/Heart1/AnimationPlayer1")
+heart_2_animation = NodePath("CanvasLayer/Heart2/AnimationPlayer2")
+heart_3_animation = NodePath("CanvasLayer/Heart3/AnimationPlayer3")
+heart_4_animation = NodePath("CanvasLayer/Heart4/AnimationPlayer4")
+heart_5_animation = NodePath("CanvasLayer/Heart5/AnimationPlayer5")
+heart_6_animation = NodePath("CanvasLayer/Heart6/AnimationPlayer6")
+heart_7_animation = NodePath("CanvasLayer/Heart7/AnimationPlayer7")
+heart_8_animation = NodePath("CanvasLayer/Heart8/AnimationPlayer8")
 game_grab_stick = ExtResource("2_010jw")
 game_not_a_bug = ExtResource("3_bh2rd")
 boss_quiz = ExtResource("4_o0c56")
@@ -370,6 +567,98 @@ game_scene_container = NodePath("MicrogameContainer")
 [node name="Background" type="AnimatedSprite2D" parent="CanvasLayer"]
 sprite_frames = SubResource("SpriteFrames_r2vpm")
 offset = Vector2(960, 540)
+
+[node name="Heart1" type="AnimatedSprite2D" parent="CanvasLayer"]
+process_mode = 3
+position = Vector2(300, 125)
+sprite_frames = SubResource("SpriteFrames_oh1ac")
+
+[node name="AnimationPlayer1" type="AnimationPlayer" parent="CanvasLayer/Heart1"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_poe4l")
+}
+
+[node name="Heart2" type="AnimatedSprite2D" parent="CanvasLayer"]
+process_mode = 3
+position = Vector2(300, 225)
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_oh1ac")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="CanvasLayer/Heart2"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_nay5k")
+}
+
+[node name="Heart3" type="AnimatedSprite2D" parent="CanvasLayer"]
+process_mode = 3
+position = Vector2(300, 325)
+sprite_frames = SubResource("SpriteFrames_oh1ac")
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="CanvasLayer/Heart3"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_w2p2t")
+}
+
+[node name="Heart4" type="AnimatedSprite2D" parent="CanvasLayer"]
+process_mode = 3
+position = Vector2(300, 425)
+sprite_frames = SubResource("SpriteFrames_oh1ac")
+
+[node name="AnimationPlayer4" type="AnimationPlayer" parent="CanvasLayer/Heart4"]
+libraries = {
+"": SubResource("AnimationLibrary_sm7a1")
+}
+
+[node name="Heart5" type="AnimatedSprite2D" parent="CanvasLayer"]
+process_mode = 3
+position = Vector2(1620, 125)
+sprite_frames = SubResource("SpriteFrames_oh1ac")
+flip_h = true
+
+[node name="AnimationPlayer5" type="AnimationPlayer" parent="CanvasLayer/Heart5"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_1uciv")
+}
+
+[node name="Heart6" type="AnimatedSprite2D" parent="CanvasLayer"]
+process_mode = 3
+position = Vector2(1620, 225)
+sprite_frames = SubResource("SpriteFrames_oh1ac")
+flip_h = true
+
+[node name="AnimationPlayer6" type="AnimationPlayer" parent="CanvasLayer/Heart6"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_ehtdc")
+}
+
+[node name="Heart7" type="AnimatedSprite2D" parent="CanvasLayer"]
+process_mode = 3
+position = Vector2(1620, 325)
+sprite_frames = SubResource("SpriteFrames_oh1ac")
+flip_h = true
+
+[node name="AnimationPlayer7" type="AnimationPlayer" parent="CanvasLayer/Heart7"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_a8atw")
+}
+
+[node name="Heart8" type="AnimatedSprite2D" parent="CanvasLayer"]
+process_mode = 3
+position = Vector2(1620, 425)
+sprite_frames = SubResource("SpriteFrames_oh1ac")
+flip_h = true
+
+[node name="AnimationPlayer8" type="AnimationPlayer" parent="CanvasLayer/Heart8"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_qvg5k")
+}
 
 [node name="LeftRacoon" type="AnimatedSprite2D" parent="CanvasLayer"]
 sprite_frames = SubResource("SpriteFrames_vdf6n")
@@ -482,6 +771,9 @@ stream = ExtResource("5_t5hjq")
 [node name="SpeedUp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_8ej0p")
 
+[node name="BeatTimer" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="timeout" from="SpeedUpMusicTimer" to="." method="_on_speed_up_music_timer_timeout"]
 [connection signal="timeout" from="IntroTimer" to="." method="_on_intro_timer_timeout"]
 [connection signal="timeout" from="SpecialSpeedUpMusicTimer" to="." method="_on_special_speed_up_music_timer_timeout"]
@@ -489,3 +781,4 @@ stream = ExtResource("10_8ej0p")
 [connection signal="timeout" from="BossMusicTimer" to="." method="_on_boss_music_timer_timeout"]
 [connection signal="timeout" from="CountdownTimer" to="." method="_on_countdown_timer_timeout"]
 [connection signal="timeout" from="IntermissionMusicTimer" to="." method="_on_intermission_music_timer_timeout"]
+[connection signal="timeout" from="BeatTimer" to="." method="_on_beat_timer_timeout"]

@@ -20,6 +20,24 @@ extends Node
 @export var left_racoon: AnimatedSprite2D
 @export var right_racoon: AnimatedSprite2D
 @export var background_animation: AnimatedSprite2D
+@export var heart_1: AnimatedSprite2D
+@export var heart_2: AnimatedSprite2D
+@export var heart_3: AnimatedSprite2D
+@export var heart_4: AnimatedSprite2D
+@export var heart_5: AnimatedSprite2D
+@export var heart_6: AnimatedSprite2D
+@export var heart_7: AnimatedSprite2D
+@export var heart_8: AnimatedSprite2D
+
+@export var beat_timer: Timer
+@export var heart_1_animation: AnimationPlayer
+@export var heart_2_animation: AnimationPlayer
+@export var heart_3_animation: AnimationPlayer
+@export var heart_4_animation: AnimationPlayer
+@export var heart_5_animation: AnimationPlayer
+@export var heart_6_animation: AnimationPlayer
+@export var heart_7_animation: AnimationPlayer
+@export var heart_8_animation: AnimationPlayer
 
 @export var game_grab_stick: PackedScene
 @export var game_not_a_bug: PackedScene
@@ -55,8 +73,13 @@ func intro():
 	background_animation.set_speed_scale(GameManager.game_speed)
 	left_racoon.set_speed_scale(GameManager.game_speed)
 	right_racoon.set_speed_scale(GameManager.game_speed)
+	heart_speed_scales()
+	
 	left_racoon.play("intermission")
 	right_racoon.play("intermission")
+	beat_timer.set_wait_time(0.5/GameManager.game_speed)
+	beat_timer.start()
+	pulse_hearts()
 	background_animation.play()
 	win_music.play() #CHANGE
 	lose_music.set_pitch_scale(GameManager.game_speed)
@@ -94,6 +117,7 @@ func intermission():
 	background_animation.set_speed_scale(GameManager.game_speed)
 	left_racoon.set_speed_scale(GameManager.game_speed)
 	right_racoon.set_speed_scale(GameManager.game_speed)
+	heart_speed_scales()
 	
 	if GameManager.round_count > 1:
 		
@@ -166,6 +190,9 @@ func intermission():
 		GameManager.intermission_music.play()
 		left_racoon.play("intermission")
 		right_racoon.play("intermission")
+		beat_timer.set_wait_time(0.5/GameManager.game_speed)
+		beat_timer.start()
+		pulse_hearts()
 			
 	countdown_label.show()
 	countdown_timer.start()
@@ -184,7 +211,7 @@ func _on_countdown_timer_timeout():
 			#while next_game == GameManager.prev_boss:
 				#next_game = randi_range(1000, 1000)  #free this code when you have more than 1 boss
 			#GameManager.prev_boss = next_game
-			#GameManager.boss_now = false
+			GameManager.boss_now = false
 			if GameManager.round_count == 14 || GameManager.round_count == 28:
 				GameManager.level_up_now = true
 			else:
@@ -218,6 +245,15 @@ func _on_countdown_timer_timeout():
 		p1_lives_label.hide()
 		p2_lives_label.hide()
 		round_count_label.hide()
+		heart_1.hide()
+		heart_2.hide()
+		heart_3.hide()
+		heart_4.hide()
+		heart_5.hide()
+		heart_6.hide()
+		heart_7.hide()
+		heart_8.hide()
+
 		var out = "Round %d started with Game Speed %f." % [GameManager.round_count, GameManager.game_speed]
 		print(out)
 			
@@ -232,6 +268,14 @@ func _on_microgame_finished():
 	p1_lives_label.show()
 	p2_lives_label.show()
 	round_count_label.show()
+	heart_1.show()
+	heart_2.show()
+	heart_3.show()
+	heart_4.show()
+	heart_5.show()
+	heart_6.show()
+	heart_7.show()
+	heart_8.show()
 	intermission()
 
 
@@ -239,6 +283,9 @@ func _on_intermission_music_timer_timeout():
 	GameManager.intermission_music.play()
 	left_racoon.play("intermission")
 	right_racoon.play("intermission")
+	beat_timer.set_wait_time(0.5/GameManager.game_speed)
+	beat_timer.start()
+	pulse_hearts()
 
 
 func _on_speed_up_music_timer_timeout():
@@ -246,12 +293,16 @@ func _on_speed_up_music_timer_timeout():
 	background_animation.set_speed_scale(GameManager.game_speed)
 	left_racoon.set_speed_scale(GameManager.game_speed)
 	right_racoon.set_speed_scale(GameManager.game_speed)
+	heart_speed_scales()
 	GameManager.intermission_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.play()
 	# change to speed up animation
 	left_racoon.play("intermission")
 	right_racoon.play("intermission")
+	beat_timer.set_wait_time(0.5/GameManager.game_speed)
+	beat_timer.start()
+	pulse_hearts()
 
 
 func _on_level_up_music_timer_timeout():
@@ -260,12 +311,16 @@ func _on_level_up_music_timer_timeout():
 	background_animation.set_speed_scale(GameManager.game_speed)
 	left_racoon.set_speed_scale(GameManager.game_speed)
 	right_racoon.set_speed_scale(GameManager.game_speed)
+	heart_speed_scales()
 	GameManager.intermission_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.play() #CHANGE
 	# change to speed up animation
 	left_racoon.play("intermission")
 	right_racoon.play("intermission")
+	beat_timer.set_wait_time(0.5/GameManager.game_speed)
+	beat_timer.start()
+	pulse_hearts()
 
 
 func _on_boss_music_timer_timeout():
@@ -277,12 +332,16 @@ func _on_boss_music_timer_timeout():
 	background_animation.set_speed_scale(GameManager.game_speed)
 	left_racoon.set_speed_scale(GameManager.game_speed)
 	right_racoon.set_speed_scale(GameManager.game_speed)
+	heart_speed_scales()
 	GameManager.intermission_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.play() #CHANGE
 	# change to speed up animation
 	left_racoon.play("intermission")
 	right_racoon.play("intermission")
+	beat_timer.set_wait_time(0.5/GameManager.game_speed)
+	beat_timer.start()
+	pulse_hearts()
 
 
 func _on_special_speed_up_music_timer_timeout():
@@ -290,13 +349,50 @@ func _on_special_speed_up_music_timer_timeout():
 	background_animation.set_speed_scale(GameManager.game_speed)
 	left_racoon.set_speed_scale(GameManager.game_speed)
 	right_racoon.set_speed_scale(GameManager.game_speed)
+	heart_speed_scales()
 	GameManager.intermission_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.set_pitch_scale(GameManager.game_speed)
 	speed_up_music.play()
 	# change to speed up animation
 	left_racoon.play("intermission")
 	right_racoon.play("intermission")
+	beat_timer.set_wait_time(0.5/GameManager.game_speed)
+	beat_timer.start()
+	pulse_hearts()
 
 
 func _on_intro_timer_timeout():
 	intermission()
+
+
+func _on_beat_timer_timeout():
+	pulse_hearts()
+	print("beat")
+
+func pulse_hearts():
+	heart_1_animation.play("pulse")
+	heart_2_animation.play("pulse")
+	heart_3_animation.play("pulse")
+	heart_4_animation.play("pulse")
+	heart_5_animation.play("pulse")
+	heart_6_animation.play("pulse")
+	heart_7_animation.play("pulse")
+	heart_8_animation.play("pulse")
+
+func heart_speed_scales():
+	heart_1.set_speed_scale(GameManager.game_speed)
+	heart_1_animation.set_speed_scale(GameManager.game_speed)
+	heart_2.set_speed_scale(GameManager.game_speed)
+	heart_2_animation.set_speed_scale(GameManager.game_speed)
+	heart_3.set_speed_scale(GameManager.game_speed)
+	heart_3_animation.set_speed_scale(GameManager.game_speed)
+	heart_4.set_speed_scale(GameManager.game_speed)
+	heart_4_animation.set_speed_scale(GameManager.game_speed)
+	heart_5.set_speed_scale(GameManager.game_speed)
+	heart_5_animation.set_speed_scale(GameManager.game_speed)
+	heart_6.set_speed_scale(GameManager.game_speed)
+	heart_6_animation.set_speed_scale(GameManager.game_speed)
+	heart_7.set_speed_scale(GameManager.game_speed)
+	heart_7_animation.set_speed_scale(GameManager.game_speed)
+	heart_8.set_speed_scale(GameManager.game_speed)
+	heart_8_animation.set_speed_scale(GameManager.game_speed)

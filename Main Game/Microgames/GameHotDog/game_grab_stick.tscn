@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bvyrijkk18iiq"]
+[gd_scene load_steps=15 format=3 uid="uid://bvyrijkk18iiq"]
 
 [ext_resource type="Script" path="res://Main Game/Microgames/GameHotDog/game_grab_stick.gd" id="1_kq6cc"]
 [ext_resource type="Texture2D" uid="uid://bl0m4gkoiwpfa" path="res://scuffed transition2 no onionskin.png" id="2_tjaor"]
+[ext_resource type="Texture2D" uid="uid://cssaesabkcv4d" path="res://Main Game/Microgames/GameHotDog/caught_dog_bg.png" id="3_bo7ih"]
 [ext_resource type="Texture2D" uid="uid://dinrjagr3thwi" path="res://icon.svg" id="3_q7i8a"]
 [ext_resource type="Script" path="res://Main Game/Microgames/GameHotDog/target_1.gd" id="4_bw4qv"]
 [ext_resource type="Script" path="res://Main Game/Microgames/GameHotDog/target_2.gd" id="5_raimr"]
@@ -38,7 +39,7 @@ animations = [{
 
 [node name="GameGrabStick" type="Node" node_paths=PackedStringArray("transition_rect", "target_1", "target_2", "target_1_collision", "target_2_collision", "catcher_1_collision", "catcher_2_collision", "target_timer_1", "target_timer_2", "game_timer", "tick_timer_1", "tick_timer_2", "tick_timer_3", "early_finish_timer_0", "early_finish_timer_1", "early_finish_timer_2", "game_music", "tick", "timer_bar", "sfx_whip1", "sfx_whip2", "sfx_miss1", "sfx_miss2")]
 script = ExtResource("1_kq6cc")
-transition_rect = NodePath("CanvasLayer/Control/TransitionRect")
+transition_rect = NodePath("CanvasLayer1/Control/TransitionRect")
 target_1 = NodePath("Target1")
 target_2 = NodePath("Target2")
 target_1_collision = NodePath("Target1/CollisionShape2D")
@@ -56,15 +57,23 @@ early_finish_timer_1 = NodePath("EarlyFinish1")
 early_finish_timer_2 = NodePath("EarlyFinish2")
 game_music = NodePath("GameMusic")
 tick = NodePath("SFXTick")
-timer_bar = NodePath("CanvasLayer/Control/ProgressBar")
+timer_bar = NodePath("CanvasLayer1/Control/ProgressBar")
 sfx_whip1 = NodePath("SFXWhip1")
 sfx_whip2 = NodePath("SFXWhip2")
 sfx_miss1 = NodePath("SFXMiss")
 sfx_miss2 = NodePath("SFXMiss2")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer-1" type="CanvasLayer" parent="."]
+layer = -1
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Background" type="Sprite2D" parent="CanvasLayer-1"]
+z_index = -1
+texture = ExtResource("3_bo7ih")
+centered = false
+
+[node name="CanvasLayer1" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer1"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,7 +81,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Control"]
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer1/Control"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -87,7 +96,7 @@ grow_horizontal = 2
 grow_vertical = 0
 show_percentage = false
 
-[node name="TransitionRect" type="TextureRect" parent="CanvasLayer/Control"]
+[node name="TransitionRect" type="TextureRect" parent="CanvasLayer1/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -128,7 +137,7 @@ scale = Vector2(6, 12)
 shape = SubResource("RectangleShape2D_n61f0")
 
 [node name="Target1" type="Area2D" parent="."]
-position = Vector2(640, 135)
+position = Vector2(640, -500)
 script = ExtResource("4_bw4qv")
 metadata/_edit_group_ = true
 
@@ -142,7 +151,7 @@ scale = Vector2(6, 15)
 shape = SubResource("RectangleShape2D_r10md")
 
 [node name="Target2" type="Area2D" parent="."]
-position = Vector2(1280, 135)
+position = Vector2(1280, -500)
 script = ExtResource("5_raimr")
 metadata/_edit_group_ = true
 
