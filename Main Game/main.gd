@@ -68,8 +68,6 @@ func _process(delta):
 	countdown_label.text = str(floor(countdown_timer.get_time_left()) + 1)
 
 func intro():
-	GameManager.p1_lives = 2
-	GameManager.p2_lives = 2
 	await get_tree().create_timer(0.0/ GameManager.game_speed).timeout
 	intro_timer.start()
 	intro_timer.set_wait_time(2.0/GameManager.game_speed)
