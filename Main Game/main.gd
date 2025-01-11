@@ -8,6 +8,7 @@ extends Node
 @export var boss_music_timer: Timer
 @export var special_speed_up_music_timer: Timer
 @export var intro_timer: Timer
+@export var game_over_timer: Timer
 @export var intermission_label: Label
 @export var countdown_label: Label
 @export var p1_lives_label: Label
@@ -67,6 +68,8 @@ func _process(delta):
 	countdown_label.text = str(floor(countdown_timer.get_time_left()) + 1)
 
 func intro():
+	GameManager.p1_lives = 2
+	GameManager.p2_lives = 2
 	await get_tree().create_timer(0.0/ GameManager.game_speed).timeout
 	intro_timer.start()
 	intro_timer.set_wait_time(2.0/GameManager.game_speed)
@@ -88,9 +91,41 @@ func intro():
 
 func intermission():
 	if GameManager.p1_just_failed == true:
-		GameManager.p1_lives -= 1
+		if GameManager.p2_just_failed == true && GameManager.p1_lives == 1 && GameManager.p2_lives == 1:
+			#"SUDDEN DEATH" logic
+			pass
+		else:
+			GameManager.p1_lives -= 1
+			if GameManager.p1_lives == 3:
+				heart_1.play("break")
+				heart_1_animation.play("blink")
+			elif GameManager.p1_lives == 2:
+				heart_2.play("break")
+				heart_2_animation.play("blink")
+			elif GameManager.p1_lives == 1:
+				heart_3.play("break")
+				heart_3_animation.play("blink")
+			elif GameManager.p1_lives == 0:
+				heart_4.play("break")
+				heart_4_animation.play("blink")
 	if GameManager.p2_just_failed == true:
-		GameManager.p2_lives -= 1
+		if GameManager.p1_just_failed == true && GameManager.p1_lives == 1 && GameManager.p2_lives == 1:
+			#"SUDDEN DEATH" logic
+			pass
+		else:
+			GameManager.p2_lives -= 1
+			if GameManager.p2_lives == 3:
+				heart_5.play("break")
+				heart_5_animation.play("blink")
+			elif GameManager.p2_lives == 2:
+				heart_6.play("break")
+				heart_6_animation.play("blink")
+			elif GameManager.p2_lives == 1:
+				heart_7.play("break")
+				heart_7_animation.play("blink")
+			elif GameManager.p2_lives == 0:
+				heart_8.play("break")
+				heart_8_animation.play("blink")
 	
 	if GameManager.p1_lives > 0 && GameManager.p2_lives > 0:
 		GameManager.round_count += 1
@@ -106,6 +141,7 @@ func intermission():
 	print(GameManager.p2_just_failed)
 	
 	if GameManager.round_count % 14 == 6 || GameManager.round_count % 14 == 11:
+	#if GameManager.round_count % 2 == 1:
 		GameManager.speed_up_now = true
 	elif GameManager.round_count % 14 == 0 && GameManager.round_count != 0:
 		GameManager.boss_now = true
@@ -139,7 +175,7 @@ func intermission():
 				left_racoon.play("lose")
 				right_racoon.play("win")
 		
-		if GameManager.special_speed_up_now == true:									#used to be 1.375
+		if GameManager.special_speed_up_now == true && GameManager.p1_lives > 0 && GameManager.p2_lives > 0:									#used to be 1.375
 			countdown_timer.set_wait_time((2.00) / (GameManager.game_speed) + ((4.00 + 1.5) / (GameManager.game_speed * speed_up_factor * speed_up_factor)))
 			intermission_music_timer.set_wait_time((2.00)/ (GameManager.game_speed) + (4.00 / (GameManager.game_speed * speed_up_factor * speed_up_factor)))
 			special_speed_up_music_timer.set_wait_time((2.00)/ GameManager.game_speed)
@@ -148,7 +184,7 @@ func intermission():
 			print(GameManager.round_count)
 			print("Back up to speed!")
 		
-		elif GameManager.speed_up_now == true:									#used to be 1.375
+		elif GameManager.speed_up_now == true && GameManager.p1_lives > 0 && GameManager.p2_lives > 0:									#used to be 1.375
 			countdown_timer.set_wait_time((2.00) / (GameManager.game_speed) + ((4.00 + 1.5) / (GameManager.game_speed * speed_up_factor))) # each part of song is 2sec. 1.375 sec of the intermission is played here, the other 0.625 sec is played in the game scene
 			intermission_music_timer.set_wait_time((2.00)/ (GameManager.game_speed) + (4.00 / (GameManager.game_speed * speed_up_factor)))
 			speed_up_music_timer.set_wait_time((2.00)/ GameManager.game_speed)
@@ -157,7 +193,7 @@ func intermission():
 			print(GameManager.round_count)
 			print("speed!")
 			
-		elif GameManager.level_up_now == true:
+		elif GameManager.level_up_now == true && GameManager.p1_lives > 0 && GameManager.p2_lives > 0:
 			countdown_timer.set_wait_time((2.00) / (GameManager.game_speed) + ((4.00 + 1.5) / (GameManager.game_speed)))
 			intermission_music_timer.set_wait_time((2.00)/ (GameManager.game_speed) + (4.00 / (GameManager.game_speed)))
 			level_up_music_timer.set_wait_time((2.00)/ GameManager.game_speed)
@@ -166,7 +202,7 @@ func intermission():
 			print(GameManager.round_count)
 			print("Time to level up!")
 			
-		elif GameManager.boss_now == true:
+		elif GameManager.boss_now == true && GameManager.p1_lives > 0 && GameManager.p2_lives > 0:
 			if GameManager.round_count == 14 || GameManager.round_count == 28:
 				countdown_timer.set_wait_time((2.00) / (GameManager.game_speed) + ((4.00 + 1.5) / (1.0)))
 				intermission_music_timer.set_wait_time((2.00)/ (GameManager.game_speed) + (4.00 / (1.0)))
@@ -179,12 +215,18 @@ func intermission():
 			print(GameManager.round_count)
 			print("Boss time!")
 		
-		else:
+		elif GameManager.p1_lives > 0 && GameManager.p2_lives > 0:
 												# used to be 1.375
 			countdown_timer.set_wait_time((2.00 + 1.5)/ GameManager.game_speed)
 			intermission_music_timer.set_wait_time((2.00)/ GameManager.game_speed)
 		
-		intermission_music_timer.start()
+		else:
+			#GAME OVER
+			game_over_timer.set_wait_time(2.0/GameManager.game_speed)
+			game_over_timer.start()
+		
+		if GameManager.p1_lives > 0 && GameManager.p2_lives > 0:
+			intermission_music_timer.start()
 		
 	else:
 		GameManager.intermission_music.play()
@@ -268,14 +310,7 @@ func _on_microgame_finished():
 	p1_lives_label.show()
 	p2_lives_label.show()
 	round_count_label.show()
-	heart_1.show()
-	heart_2.show()
-	heart_3.show()
-	heart_4.show()
-	heart_5.show()
-	heart_6.show()
-	heart_7.show()
-	heart_8.show()
+	show_hearts()
 	intermission()
 
 
@@ -364,20 +399,64 @@ func _on_special_speed_up_music_timer_timeout():
 func _on_intro_timer_timeout():
 	intermission()
 
+func _on_game_over_timer_timeout():
+	GameManager.game_speed = 1.0
+	left_racoon.set_speed_scale(GameManager.game_speed)
+	right_racoon.set_speed_scale(GameManager.game_speed)
+	heart_speed_scales()
+	beat_timer.set_wait_time(0.5/GameManager.game_speed)
+	beat_timer.start()
+	pulse_hearts()
+	
+	if GameManager.p1_lives > 0:
+		left_racoon.play("win")
+	else:
+		left_racoon.play("lose")
+	if GameManager.p2_lives > 0:
+		right_racoon.play("win")
+	else:
+		right_racoon.play("lose")
+	#REPLACE WITH END MUSIC
+	win_music.set_pitch_scale(GameManager.game_speed)
+	win_music.play()
 
 func _on_beat_timer_timeout():
 	pulse_hearts()
-	print("beat")
+	#print("beat")
 
 func pulse_hearts():
-	heart_1_animation.play("pulse")
-	heart_2_animation.play("pulse")
-	heart_3_animation.play("pulse")
-	heart_4_animation.play("pulse")
-	heart_5_animation.play("pulse")
-	heart_6_animation.play("pulse")
-	heart_7_animation.play("pulse")
-	heart_8_animation.play("pulse")
+	if GameManager.p1_lives >= 4:
+		heart_1_animation.play("pulse")
+		heart_2_animation.play("pulse")
+		heart_3_animation.play("pulse")
+		heart_4_animation.play("pulse")
+	elif GameManager.p1_lives == 3:
+		heart_2_animation.play("pulse")
+		heart_3_animation.play("pulse")
+		heart_4_animation.play("pulse")
+	elif GameManager.p1_lives == 2:
+		heart_3_animation.play("pulse")
+		heart_4_animation.play("pulse")
+	elif GameManager.p1_lives == 1:
+		heart_4_animation.play("pulse")
+	else:
+		pass
+	if GameManager.p2_lives >= 4:
+		heart_5_animation.play("pulse")
+		heart_6_animation.play("pulse")
+		heart_7_animation.play("pulse")
+		heart_8_animation.play("pulse")
+	elif GameManager.p2_lives == 3:
+		heart_6_animation.play("pulse")
+		heart_7_animation.play("pulse")
+		heart_8_animation.play("pulse")
+	elif GameManager.p2_lives == 2:
+		heart_7_animation.play("pulse")
+		heart_8_animation.play("pulse")
+	elif GameManager.p2_lives == 1:
+		heart_8_animation.play("pulse")
+	else:
+		pass
 
 func heart_speed_scales():
 	heart_1.set_speed_scale(GameManager.game_speed)
@@ -396,3 +475,78 @@ func heart_speed_scales():
 	heart_7_animation.set_speed_scale(GameManager.game_speed)
 	heart_8.set_speed_scale(GameManager.game_speed)
 	heart_8_animation.set_speed_scale(GameManager.game_speed)
+
+
+func _on_heart_1_animation_finished():
+	heart_1_animation.stop()
+	heart_1.hide()
+
+
+func _on_heart_2_animation_finished():
+	heart_2_animation.stop()
+	heart_2.hide()
+
+
+func _on_heart_3_animation_finished():
+	heart_3_animation.stop()
+	heart_3.hide()
+
+
+func _on_heart_4_animation_finished():
+	heart_4_animation.stop()
+	heart_4.hide()
+
+
+func _on_heart_5_animation_finished():
+	heart_5_animation.stop()
+	heart_5.hide()
+
+
+func _on_heart_6_animation_finished():
+	heart_6_animation.stop()
+	heart_6.hide()
+
+
+func _on_heart_7_animation_finished():
+	heart_7_animation.stop()
+	heart_7.hide()
+
+
+func _on_heart_8_animation_finished():
+	heart_8_animation.stop()
+	heart_8.hide()
+	
+func show_hearts():
+	if GameManager.p1_lives >= 4:
+		heart_1.show()
+		heart_2.show()
+		heart_3.show()
+		heart_4.show()
+	elif GameManager.p1_lives == 3:
+		heart_2.show()
+		heart_3.show()
+		heart_4.show()
+	elif GameManager.p1_lives == 2:
+		heart_3.show()
+		heart_4.show()
+	elif GameManager.p1_lives == 1:
+		heart_4.show()
+	else:
+		pass
+	
+	if GameManager.p2_lives >= 4:
+		heart_5.show()
+		heart_6.show()
+		heart_7.show()
+		heart_8.show()
+	elif GameManager.p2_lives == 3:
+		heart_6.show()
+		heart_7.show()
+		heart_8.show()
+	elif GameManager.p2_lives == 2:
+		heart_7.show()
+		heart_8.show()
+	elif GameManager.p2_lives == 1:
+		heart_8.show()
+	else:
+		pass

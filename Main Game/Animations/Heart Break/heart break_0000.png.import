@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb6pce6f5blxk"
-path="res://.godot/imported/heart 1.png-2896b3839a3205bced881b93d9a1d20a.ctex"
+uid="uid://7fe706khqhko"
+path="res://.godot/imported/heart break_0000.png-ef0b3749d0cc9f9d34009b74eaff08b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Main Game/Animations/heart 1.png"
-dest_files=["res://.godot/imported/heart 1.png-2896b3839a3205bced881b93d9a1d20a.ctex"]
+source_file="res://Main Game/Animations/Heart Break/heart break_0000.png"
+dest_files=["res://.godot/imported/heart break_0000.png-ef0b3749d0cc9f9d34009b74eaff08b5.ctex"]
 
 [params]
 
